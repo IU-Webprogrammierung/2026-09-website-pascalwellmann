@@ -564,3 +564,77 @@ site-header {
     }
   }
 }
+
+/* ========================================
+   Training
+   ======================================== */
+
+.page-training {
+  & main {
+    display: grid;
+    gap: var(--space-lg);
+
+    & > section,
+    & > aside {
+      margin-block-end: 0;
+    }
+  }
+
+  & .training-areas > div,
+  & .training-week > div,
+  & .training-load > div {
+    display: grid;
+    gap: var(--space-sm);
+  }
+}
+
+@media (min-width: 48rem) {
+  .page-training {
+    & main {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    & .training-intro,
+    & .training-areas,
+    & .training-week,
+    & .training-load {
+      grid-column: 1 / -1;
+    }
+
+    & .training-areas > div {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    & .training-load > div {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+
+@media (min-width: 75rem) {
+  .page-training {
+    & main {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    & .training-intro,
+    & .training-areas {
+      grid-column: 1 / -1;
+    }
+
+    & .training-week,
+    & .training-load,
+    & .training-phase,
+    & .training-principles {
+      grid-column: auto;
+    }
+
+    & .training-areas > div {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    & .training-load > div {
+      grid-template-columns: 1fr;
+    }
+  }
+}
