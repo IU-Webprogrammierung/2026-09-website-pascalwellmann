@@ -368,3 +368,35 @@ dl {
     }
   }
 }
+
+/* ========================================
+   Desktop-Layout ab 1200 Pixeln
+   ======================================== */
+
+@media (min-width: 75rem) {
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+
+    & > p {
+      flex-shrink: 0;
+      margin-block-end: 0;
+    }
+
+    & nav ul {
+      flex-wrap: nowrap;
+    }
+  }
+
+  section {
+    & > div {
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    }
+  }
+
+  dl {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  }
+}
