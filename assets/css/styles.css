@@ -74,6 +74,8 @@ h3 {
   margin-block-start: 0;
   color: var(--color-primary);
   line-height: 1.2;
+  hyphens: auto;
+  overflow-wrap: anywhere;
 }
 
 h1 {
@@ -231,6 +233,7 @@ section {
 }
 
 article {
+  min-width: 0;
   padding: var(--space-sm);
   border: 0.0625rem solid var(--color-border);
   border-radius: var(--border-radius);
@@ -635,6 +638,68 @@ site-header {
 
     & .training-load > div {
       grid-template-columns: 1fr;
+    }
+  }
+}
+
+/* ========================================
+   Wettkämpfe
+   ======================================== */
+
+.page-competitions {
+  & main {
+    display: grid;
+    gap: var(--space-lg);
+
+    & > section,
+    & > aside {
+      margin-block-end: 0;
+    }
+  }
+
+  & .competitions-planned > div,
+  & .competitions-history > div {
+    display: grid;
+    gap: var(--space-sm);
+  }
+}
+
+@media (min-width: 48rem) {
+  .page-competitions {
+    & main {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    & .competitions-intro,
+    & .competitions-main,
+    & .competitions-note,
+    & .competitions-planned,
+    & .competitions-history {
+      grid-column: 1 / -1;
+    }
+
+    & .competitions-planned > div,
+    & .competitions-history > div {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+@media (min-width: 75rem) {
+  .page-competitions {
+    & main {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    & .competitions-intro,
+    & .competitions-planned,
+    & .competitions-history {
+      grid-column: 1 / -1;
+    }
+
+    & .competitions-main,
+    & .competitions-note {
+      grid-column: auto;
     }
   }
 }
