@@ -124,3 +124,61 @@ a:focus-visible {
   outline: 0.1875rem solid var(--color-focus);
   outline-offset: 0.1875rem;
 }
+
+/* ========================================
+   Header und Hauptnavigation
+   ======================================== */
+
+header {
+  padding-block: var(--space-sm);
+  border-bottom: 0.125rem solid var(--color-border);
+}
+
+header > p {
+  margin-block-end: var(--space-sm);
+  color: var(--color-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  display: block;
+  min-height: 2.75rem;
+  padding: 0.625rem var(--space-sm);
+  border-radius: var(--border-radius);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+
+footer {
+  padding-block: var(--space-md);
+  border-top: 0.125rem solid var(--color-border);
+  color: var(--color-text-light);
+}
+
+footer p {
+  margin-block-end: var(--space-xs);
+}
+
+footer a {
+  display: inline-block;
+  padding-block: 0.25rem;
+}
