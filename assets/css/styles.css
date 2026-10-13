@@ -268,3 +268,49 @@ dl {
     font-weight: 700;
   }
 }
+
+/* ========================================
+   Aktionslinks
+   ======================================== */
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.625rem var(--space-sm);
+  border: 0.125rem solid var(--color-secondary);
+  border-radius: var(--border-radius);
+  background-color: var(--color-secondary);
+  color: var(--color-surface);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+
+  &:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+  }
+
+  &.button--secondary {
+    background-color: transparent;
+    color: var(--color-secondary);
+
+    &:hover {
+      background-color: var(--color-primary);
+      color: var(--color-surface);
+    }
+  }
+}
