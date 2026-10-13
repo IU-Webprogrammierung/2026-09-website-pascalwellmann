@@ -400,3 +400,55 @@ dl {
     grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   }
 }
+
+/* ========================================
+   Mobile Menüschaltfläche
+   ======================================== */
+
+site-header {
+  & nav {
+    display: none;
+    margin-block-start: var(--space-sm);
+  }
+
+  &[data-menu-open] nav {
+    display: block;
+  }
+}
+
+.menu-toggle {
+  min-height: 2.75rem;
+  padding: 0.625rem var(--space-sm);
+  border: 0.125rem solid var(--color-secondary);
+  border-radius: var(--border-radius);
+  background-color: var(--color-surface);
+  color: var(--color-secondary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+  }
+
+  &:focus-visible {
+    outline: 0.1875rem solid var(--color-focus);
+    outline-offset: 0.1875rem;
+  }
+}
+
+/* Navigation ab Tabletbreite dauerhaft anzeigen */
+
+@media (min-width: 48rem) {
+  site-header {
+    & nav {
+      display: block;
+      margin-block-start: 0;
+    }
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+}

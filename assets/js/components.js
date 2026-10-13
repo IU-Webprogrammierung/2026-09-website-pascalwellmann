@@ -6,7 +6,19 @@ class SiteHeader extends HTMLElement {
           <a href="index.html">Road to Hamburg</a>
         </p>
 
-        <nav aria-label="Hauptnavigation">
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="main-navigation"
+        >
+          Menü
+        </button>
+
+        <nav
+          id="main-navigation"
+          aria-label="Hauptnavigation"
+        >
           <ul>
             <li><a href="index.html">Start</a></li>
             <li><a href="mein-weg.html">Mein Weg</a></li>
@@ -27,6 +39,16 @@ class SiteHeader extends HTMLElement {
       if (link.getAttribute("href") === currentPage) {
         link.setAttribute("aria-current", "page");
       }
+    });
+
+    const menuButton = this.querySelector(".menu-toggle");
+
+    menuButton.addEventListener("click", () => {
+      const menuIsOpen = menuButton.getAttribute("aria-expanded") === "true";
+
+      menuButton.setAttribute("aria-expanded", String(!menuIsOpen));
+
+      this.toggleAttribute("data-menu-open", !menuIsOpen);
     });
   }
 }
