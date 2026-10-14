@@ -784,3 +784,33 @@ site-header {
     }
   }
 }
+
+/* ========================================
+   Impressum und Datenschutzerklärung
+   ======================================== */
+
+.page-legal {
+  & main {
+    display: grid;
+    gap: var(--space-lg);
+    max-width: 56rem;
+
+    & > section {
+      margin-block-end: 0;
+    }
+  }
+}
+
+@media (min-width: 48rem) {
+  .page-privacy {
+    & main {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    & .privacy-intro,
+    & .privacy-rights,
+    & .privacy-date {
+      grid-column: 1 / -1;
+    }
+  }
+}
