@@ -703,3 +703,84 @@ site-header {
     }
   }
 }
+
+/* ========================================
+   Ausrüstung
+   ======================================== */
+
+.page-equipment {
+  & main {
+    display: grid;
+    gap: var(--space-lg);
+
+    & > section,
+    & > aside {
+      margin-block-end: 0;
+    }
+  }
+
+  & .equipment-running > div,
+  & .equipment-cycling > div,
+  & .equipment-swimming > div,
+  & .equipment-homegym > div {
+    display: grid;
+    gap: var(--space-sm);
+  }
+}
+
+@media (min-width: 48rem) {
+  .page-equipment {
+    & main {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    & .equipment-intro,
+    & .equipment-running,
+    & .equipment-cycling,
+    & .equipment-swimming,
+    & .equipment-homegym,
+    & .equipment-note {
+      grid-column: 1 / -1;
+    }
+
+    & .equipment-running > div,
+    & .equipment-cycling > div,
+    & .equipment-swimming > div,
+    & .equipment-homegym > div {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+@media (min-width: 75rem) {
+  .page-equipment {
+    & main {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    & .equipment-intro,
+    & .equipment-running {
+      grid-column: 1 / -1;
+    }
+
+    & .equipment-cycling {
+      grid-column: span 3;
+    }
+
+    & .equipment-swimming {
+      grid-column: span 3;
+    }
+
+    & .equipment-homegym {
+      grid-column: span 4;
+    }
+
+    & .equipment-note {
+      grid-column: span 2;
+    }
+
+    & .equipment-running > div {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+}
