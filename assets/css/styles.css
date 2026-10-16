@@ -528,8 +528,88 @@ site-header {
   & .journey-stations {
     display: grid;
     gap: var(--space-sm);
+
+    & article {
+      min-width: 0;
+
+      & h3 {
+        text-align: center;
+      }
+
+      & figure {
+        margin: var(--space-md) 0;
+
+        & img {
+          display: block;
+          width: 100%;
+          height: auto;
+          aspect-ratio: 3 / 2;
+          object-fit: cover;
+          border-radius: 0.5rem;
+        }
+
+        & figcaption {
+          margin-block-start: 0.5rem;
+          font-size: 0.875rem;
+        }
+      }
+
+      & .journey-result {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        margin-block: var(--space-md);
+        padding-inline-start: 0;
+        text-align: center;
+        list-style: none;
+
+        & li:first-child time {
+          font-style: italic;
+        }
+
+        & li:last-child time {
+          color: #b42318;
+          font-size: 1.125rem;
+          font-weight: 700;
+        }
+      }
+
+      & details {
+        margin-block-start: var(--space-md);
+        padding-block-start: var(--space-md);
+        border-block-start: 1px solid #cbd8df;
+
+        & summary {
+          color: #00658a;
+          font-weight: 700;
+          cursor: pointer;
+        }
+
+        & summary:hover {
+          text-decoration: underline;
+        }
+
+        & summary:focus-visible {
+          outline: 3px solid #00658a;
+          outline-offset: 0.25rem;
+        }
+
+        &[open] summary {
+          margin-block-end: var(--space-md);
+        }
+
+        & p:last-child {
+          margin-block-end: 0;
+        }
+      }
+    }
   }
 }
+
+/* ========================================
+   Mein Weg: Tablet ab 768 Pixeln
+   ======================================== */
 
 @media (min-width: 48rem) {
   .page-journey {
@@ -551,6 +631,10 @@ site-header {
     }
   }
 }
+
+/* ========================================
+   Mein Weg: Desktop ab 1200 Pixeln
+   ======================================== */
 
 @media (min-width: 75rem) {
   .page-journey {
