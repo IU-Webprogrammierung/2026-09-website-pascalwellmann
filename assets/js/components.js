@@ -2,9 +2,14 @@ class SiteHeader extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <header>
-        <p>
-          <a href="index.html">Road to Hamburg</a>
-        </p>
+        <a class="site-brand" href="index.html">
+            <img
+                src="assets/img/road-to-hamburg-logo.png"
+                alt="Road to Hamburg – zur Startseite"
+                width="2048"
+                height="1024"
+            />
+        </a>
 
         <button
           class="menu-toggle"
@@ -12,7 +17,7 @@ class SiteHeader extends HTMLElement {
           aria-expanded="false"
           aria-controls="main-navigation"
         >
-          Menü
+          <span class="visually-hidden">Menü</span>
         </button>
 
         <nav
