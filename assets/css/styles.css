@@ -1748,6 +1748,7 @@ site-header {
    Ausrüstung
    ======================================== */
 
+/* Smartphone */
 .page-equipment {
   & main {
     display: grid;
@@ -1755,72 +1756,259 @@ site-header {
 
     & > section,
     & > aside {
+      min-width: 0;
       margin-block-end: 0;
     }
   }
 
-  & .equipment-running > div,
-  & .equipment-cycling > div,
-  & .equipment-swimming > div,
-  & .equipment-homegym > div {
+  /* ========================================
+     Ausrüstungsbereiche
+     ======================================== */
+
+  & .equipment-running,
+  & .equipment-cycling,
+  & .equipment-swimming,
+  & .equipment-homegym {
     display: grid;
+    align-content: start;
     gap: var(--space-sm);
+
+    & > h2 {
+      margin: 0;
+    }
+  }
+
+  /* ========================================
+     Ausrüstungskarten
+     ======================================== */
+
+  & article {
+    display: flex;
+    min-width: 0;
+    height: 100%;
+    flex-direction: column;
+    gap: var(--space-sm);
+
+    & h3,
+    & p,
+    & figure,
+    & dl {
+      margin: 0;
+    }
+  }
+
+  /* ========================================
+     Produktbilder
+     ======================================== */
+
+  & .equipment-image {
+    display: grid;
+    width: 100%;
+    height: 14rem;
+    overflow: hidden;
+    place-items: center;
+    box-sizing: border-box;
+    border: 0.0625rem solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-surface);
+
+    & img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: var(--space-xs);
+      box-sizing: border-box;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
+  /* ========================================
+     Einsatzzweck
+     ======================================== */
+
+  & .equipment-purpose {
+    align-self: flex-start;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999rem;
+    background-color: var(--color-secondary);
+    color: var(--color-surface);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  /* ========================================
+     Technische Angaben
+     ======================================== */
+
+  & article dl {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+    margin-block-start: auto;
+  }
+
+  & article dl > div {
+    display: grid;
+    grid-template-columns: minmax(5rem, auto) minmax(0, 1fr);
+    gap: var(--space-sm);
+    padding-block: var(--space-xs);
+    border-bottom: 0.0625rem solid var(--color-border);
+  }
+
+  & article dt {
+    font-weight: 700;
+  }
+
+  & article dd {
+    min-width: 0;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* ========================================
+     Persönlicher Hinweis
+     ======================================== */
+
+  & .equipment-note {
+    & p:last-child {
+      margin-block-end: 0;
+    }
   }
 }
+
+/* ========================================
+   Sehr kleine Smartphones bis 352 Pixel
+   ======================================== */
+
+@media (max-width: 22rem) {
+  .page-equipment {
+    & article dl > div {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+
+    & article dd {
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
+    }
+
+    & .equipment-purpose {
+      overflow-wrap: anywhere;
+    }
+  }
+}
+
+/* ========================================
+   Tablet ab 768 Pixel
+   ======================================== */
 
 @media (min-width: 48rem) {
   .page-equipment {
     & main {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas:
+        "intro intro"
+        "running running"
+        "cycling cycling"
+        "homegym homegym"
+        "swimming note";
     }
 
-    & .equipment-intro,
-    & .equipment-running,
-    & .equipment-cycling,
-    & .equipment-swimming,
-    & .equipment-homegym,
-    & .equipment-note {
-      grid-column: 1 / -1;
+    /* Einheitliche Höhe der Kartenüberschriften */
+    & article h3 {
+      min-height: 3.25rem;
     }
 
-    & .equipment-running > div,
-    & .equipment-cycling > div,
-    & .equipment-swimming > div,
-    & .equipment-homegym > div {
+    /* Einleitung */
+    & .equipment-intro {
+      grid-area: intro;
+    }
+
+    /* Laufausrüstung */
+    & .equipment-running {
+      grid-area: running;
       grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      & > h2 {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* Radausrüstung */
+    & .equipment-cycling {
+      grid-area: cycling;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      & > h2 {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* Homegym */
+    & .equipment-homegym {
+      grid-area: homegym;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      & > h2 {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* Schwimmausrüstung */
+    & .equipment-swimming {
+      grid-area: swimming;
+    }
+
+    /* Persönlicher Hinweis */
+    & .equipment-note {
+      grid-area: note;
     }
   }
 }
 
+/* ========================================
+   Desktop ab 1200 Pixel
+   ======================================== */
+
 @media (min-width: 75rem) {
   .page-equipment {
     & main {
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: 2fr 1fr;
+      grid-template-areas:
+        "intro intro"
+        "running running"
+        "cycling swimming"
+        "homegym note";
     }
 
-    & .equipment-intro,
+    /* Vier Laufkarten nebeneinander */
     & .equipment-running {
-      grid-column: 1 / -1;
-    }
-
-    & .equipment-cycling {
-      grid-column: span 3;
-    }
-
-    & .equipment-swimming {
-      grid-column: span 3;
-    }
-
-    & .equipment-homegym {
-      grid-column: span 4;
-    }
-
-    & .equipment-note {
-      grid-column: span 2;
-    }
-
-    & .equipment-running > div {
       grid-template-columns: repeat(4, minmax(0, 1fr));
+
+      & > h2 {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* Zwei Fahrradkarten nebeneinander */
+    & .equipment-cycling {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      & > h2 {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* Zwei Homegym-Karten nebeneinander */
+    & .equipment-homegym {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      & > h2 {
+        grid-column: 1 / -1;
+      }
     }
   }
 }
