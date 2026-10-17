@@ -670,6 +670,11 @@ dl {
     color: var(--color-surface);
   }
 
+  &:focus-visible {
+    outline: 0.1875rem solid var(--color-secondary);
+    outline-offset: 0.1875rem;
+  }
+
   &.button--secondary {
     background-color: transparent;
     color: var(--color-secondary);
@@ -1296,6 +1301,7 @@ site-header {
    Wettkämpfe
    ======================================== */
 
+/* Smartphone */
 .page-competitions {
   & main {
     display: grid;
@@ -1303,53 +1309,437 @@ site-header {
 
     & > section,
     & > aside {
+      min-width: 0;
       margin-block-end: 0;
     }
   }
 
-  & .competitions-planned > div,
-  & .competitions-history > div {
+  /* ========================================
+     Einleitung
+     ======================================== */
+
+  & .competitions-intro {
+    display: grid;
+    gap: var(--space-md);
+
+    & > h1 {
+      grid-column: 1 / -1;
+    }
+
+    & figure {
+      width: min(100%, 20rem);
+      margin: 0 auto;
+
+      & img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        border-radius: var(--border-radius);
+      }
+
+      & figcaption {
+        margin-block-start: var(--space-xs);
+        font-size: 0.875rem;
+        text-align: center;
+      }
+    }
+  }
+
+  /* ========================================
+     Hauptwettkampf
+     ======================================== */
+
+  & .competitions-main {
+    & article {
+      display: grid;
+      gap: var(--space-sm);
+      min-width: 0;
+    }
+
+    & h3 {
+      margin-block: 0;
+    }
+
+    & dl {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+      margin: 0;
+    }
+
+    & dl > div {
+      min-width: 0;
+      padding: var(--space-sm);
+      border: 0.0625rem solid var(--color-border);
+      border-radius: var(--border-radius);
+      background-color: var(--color-surface);
+      text-align: center;
+    }
+
+    & dt {
+      font-weight: 700;
+    }
+
+    & dd {
+      min-width: 0;
+      margin: var(--space-xs) 0 0;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  /* Status des Hauptwettkampfs */
+  & .competition-status {
+    justify-self: start;
+    margin: 0;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999rem;
+    background-color: var(--color-secondary);
+    color: var(--color-surface);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  /* Streckenbild */
+  & .competition-route {
+    width: 100%;
+    max-width: 42rem;
+    margin: var(--space-sm) auto;
+
+    & img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 26rem;
+      object-fit: contain;
+      border: 0.0625rem solid var(--color-border);
+      border-radius: var(--border-radius);
+      background-color: var(--color-surface);
+    }
+
+    & figcaption {
+      margin-block-start: var(--space-xs);
+      font-size: 0.875rem;
+      text-align: center;
+
+      & a {
+        color: var(--color-primary);
+      }
+
+      & a:hover {
+        color: var(--color-secondary);
+      }
+    }
+  }
+
+  /* ========================================
+     Vorbereitungswettkämpfe
+     ======================================== */
+
+  & .competitions-planned {
+    & > p {
+      margin-block-end: var(--space-md);
+    }
+  }
+
+  & .competitions-preparation {
     display: grid;
     gap: var(--space-sm);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    & li {
+      min-width: 0;
+      margin: 0;
+    }
+
+    & details {
+      height: auto;
+      min-width: 0;
+      padding: var(--space-md);
+      border: 0.0625rem solid var(--color-border);
+      border-radius: var(--border-radius);
+      background-color: var(--color-surface);
+    }
+
+    & summary {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-xs) var(--space-sm);
+      min-width: 0;
+      color: var(--color-primary);
+      list-style: none;
+      cursor: pointer;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      &::after {
+        content: "+";
+        flex: 0 0 auto;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      &:hover .competition-title {
+        color: var(--color-secondary);
+      }
+
+      &:focus-visible {
+        outline: 0.1875rem solid var(--color-secondary);
+        outline-offset: 0.25rem;
+      }
+    }
+
+    & details[open] summary {
+      margin-block-end: var(--space-md);
+
+      &::after {
+        content: "−";
+      }
+    }
+
+    /* Wettkampfname */
+    & .competition-title {
+      flex: 1 1 12rem;
+      min-width: 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    /* Statusmarkierungen */
+    & .competition-state {
+      flex: 0 0 auto;
+      padding: 0.25rem 0.625rem;
+      border-radius: 999rem;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    & .competition-state.completed {
+      background-color: var(--color-primary);
+      color: var(--color-surface);
+    }
+
+    & .competition-state.planned {
+      background-color: var(--color-secondary);
+      color: var(--color-surface);
+    }
+
+    & .competition-state.open {
+      border: 0.0625rem solid var(--color-border);
+      background-color: transparent;
+      color: var(--color-primary);
+    }
+
+    /* Daten innerhalb eines Vorbereitungslaufs */
+    & dl {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+      margin: 0 0 var(--space-md);
+    }
+
+    & dl > div {
+      display: grid;
+      grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr);
+      gap: var(--space-sm);
+      min-width: 0;
+      padding: var(--space-sm);
+      border: 0.0625rem solid var(--color-border);
+      border-inline-start: 0.25rem solid var(--color-secondary);
+      border-radius: var(--border-radius);
+      background-color: color-mix(
+        in srgb,
+        var(--color-primary) 5%,
+        var(--color-surface)
+      );
+    }
+
+    & dt {
+      min-width: 0;
+      font-weight: 700;
+    }
+
+    & dd {
+      min-width: 0;
+      margin: 0;
+      overflow-wrap: anywhere;
+      hyphens: auto;
+    }
+
+    & p {
+      overflow-wrap: anywhere;
+    }
+
+    & p:last-child {
+      margin-block-end: 0;
+    }
+  }
+
+  /* ========================================
+     Wettkampfbilanz
+     ======================================== */
+
+  & .competitions-balance {
+    & dl {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+      margin-block: var(--space-md);
+    }
+
+    & dl > div {
+      min-width: 0;
+      padding: var(--space-sm);
+      border: 0.0625rem solid var(--color-border);
+      border-radius: var(--border-radius);
+      background-color: var(--color-surface);
+      text-align: center;
+    }
+
+    & dt {
+      font-weight: 700;
+    }
+
+    & dd {
+      min-width: 0;
+      margin: var(--space-xs) 0 0;
+      color: var(--color-secondary);
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
   }
 }
+
+/* Sehr kleine Smartphones bis 352 Pixel */
+@media (max-width: 22rem) {
+  .page-competitions {
+    & .competitions-preparation {
+      & details {
+        padding: var(--space-sm);
+      }
+
+      & dl > div {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+      }
+
+      & dd {
+        overflow-wrap: normal;
+        word-break: normal;
+        hyphens: none;
+      }
+    }
+  }
+}
+
+/* ========================================
+   Tablet ab 768 Pixel
+   ======================================== */
 
 @media (min-width: 48rem) {
   .page-competitions {
     & main {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas:
+        "intro intro"
+        "main main"
+        "balance balance"
+        "planned planned"
+        "note note";
     }
 
-    & .competitions-intro,
-    & .competitions-main,
-    & .competitions-note,
-    & .competitions-planned,
-    & .competitions-history {
-      grid-column: 1 / -1;
+    & .competitions-intro {
+      grid-area: intro;
+      grid-template-columns: minmax(0, 1fr) minmax(12rem, 18rem);
+      align-items: start;
+
+      & > h1 {
+        grid-column: 1 / -1;
+      }
+
+      & > p {
+        grid-column: 1;
+        align-self: start;
+      }
+
+      & > figure {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: start;
+        width: 100%;
+      }
     }
 
-    & .competitions-planned > div,
-    & .competitions-history > div {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    & .competitions-main {
+      grid-area: main;
+
+      & dl {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    & .competitions-balance {
+      grid-area: balance;
+
+      & dl {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    & .competitions-planned {
+      grid-area: planned;
+    }
+
+    & .competitions-preparation {
+      & dl {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-sm);
+      }
+    }
+
+    & .competitions-note {
+      grid-area: note;
     }
   }
 }
+
+/* ========================================
+   Desktop ab 1200 Pixel
+   ======================================== */
 
 @media (min-width: 75rem) {
   .page-competitions {
     & main {
       grid-template-columns: 2fr 1fr;
+      grid-template-areas:
+        "intro intro"
+        "main balance"
+        "planned note";
     }
 
-    & .competitions-intro,
-    & .competitions-planned,
-    & .competitions-history {
-      grid-column: 1 / -1;
+    & .competitions-intro {
+      grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 18rem);
     }
 
-    & .competitions-main,
-    & .competitions-note {
-      grid-column: auto;
+    & .competitions-main {
+      & dl {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    & .competitions-balance {
+      & dl {
+        grid-template-columns: 1fr;
+      }
     }
   }
 }
