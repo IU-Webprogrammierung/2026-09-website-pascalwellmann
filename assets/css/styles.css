@@ -862,10 +862,64 @@ dl {
    Mein Weg
    ======================================== */
 
+/* Smartphone */
 .page-journey {
-  & .journey-stations {
+  & .journey-intro {
+    grid-column: 1 / -1;
     display: grid;
+    width: 100%;
+    min-width: 0;
+    gap: var(--space-md);
+
+    & h1,
+    & p {
+      margin: 0;
+    }
+  }
+
+  & .journey-intro > figure {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+    overflow: hidden;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    border: 0.0625rem solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-image-background);
+    box-shadow: var(--shadow-medium);
+
+    & img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    & figcaption {
+      padding: var(--space-xs) var(--space-sm);
+      color: var(--color-text-light);
+      font-size: 0.875rem;
+      text-align: center;
+    }
+  }
+
+  /* ========================================
+     Marathonstationen
+     ======================================== */
+
+  & .journey-stations {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: var(--space-sm);
+    min-width: 0;
+
+    & > h2 {
+      grid-column: 1 / -1;
+    }
 
     & article {
       min-width: 0;
@@ -874,6 +928,7 @@ dl {
         text-align: center;
       }
 
+      /* Bilder innerhalb der Marathonkarten */
       & figure {
         margin: var(--space-md) 0;
 
@@ -883,71 +938,75 @@ dl {
           height: auto;
           aspect-ratio: 3 / 2;
           object-fit: cover;
+          object-position: center;
           border-radius: var(--border-radius);
         }
 
         & figcaption {
           margin-block-start: var(--space-xs);
+          color: var(--color-text-light);
           font-size: 0.875rem;
         }
       }
+    }
+  }
 
-      & .journey-result {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--space-xs);
-        margin-block: var(--space-md);
-        padding-inline-start: 0;
-        text-align: center;
-        list-style: none;
+  /* Datum und Laufzeit */
+  & .journey-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-block: var(--space-md);
+    padding: 0;
+    text-align: center;
+    list-style: none;
 
-        & li:first-child time {
-          font-style: italic;
-        }
+    & li:first-child time {
+      font-style: italic;
+    }
 
-        & li:last-child time {
-          color: var(--color-secondary);
-          font-size: 1.125rem;
-          font-weight: 700;
-        }
+    & li:last-child time {
+      color: var(--color-secondary);
+      font-size: 1.125rem;
+      font-weight: 700;
+    }
+  }
+
+  /* Aufklappbare Erfahrungsberichte */
+  & .journey-stations details {
+    margin-block-start: var(--space-md);
+    padding-block-start: var(--space-md);
+    border-block-start: 0.0625rem solid var(--color-border);
+
+    & summary {
+      color: var(--color-accent);
+      font-weight: 700;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--color-secondary);
+        text-decoration: underline;
       }
 
-      & details {
-        margin-block-start: var(--space-md);
-        padding-block-start: var(--space-md);
-        border-block-start: 0.0625rem solid var(--color-border);
-
-        & summary {
-          color: var(--color-accent);
-          font-weight: 700;
-          cursor: pointer;
-        }
-
-        & summary:hover {
-          color: var(--color-secondary);
-          text-decoration: underline;
-        }
-
-        & summary:focus-visible {
-          outline: 0.1875rem solid var(--color-focus);
-          outline-offset: 0.25rem;
-        }
-
-        &[open] summary {
-          margin-block-end: var(--space-md);
-        }
-
-        & p:last-child {
-          margin-block-end: 0;
-        }
+      &:focus-visible {
+        outline: 0.1875rem solid var(--color-focus);
+        outline-offset: 0.25rem;
       }
+    }
+
+    &[open] summary {
+      margin-block-end: var(--space-md);
+    }
+
+    & p:last-child {
+      margin-block-end: 0;
     }
   }
 }
 
 /* ========================================
-   Mein Weg: Tablet ab 768 Pixeln
+   Tablet ab 768 Pixel
    ======================================== */
 
 @media (min-width: 48rem) {
@@ -956,23 +1015,15 @@ dl {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    & .journey-intro,
-    & .journey-stations {
-      grid-column: 1 / -1;
-    }
-
+    /* Marathonstationen als 2 × 2 Raster */
     & .journey-stations {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-
-      & > h2 {
-        grid-column: 1 / -1;
-      }
     }
   }
 }
 
 /* ========================================
-   Mein Weg: Desktop ab 1200 Pixeln
+   Desktop ab 1200 Pixel
    ======================================== */
 
 @media (min-width: 75rem) {
@@ -981,12 +1032,9 @@ dl {
       grid-template-columns: 2fr 1fr;
     }
 
+    /* Vier Marathonstationen nebeneinander */
     & .journey-stations {
       grid-template-columns: repeat(4, minmax(0, 1fr));
-
-      & > h2 {
-        grid-column: 1 / -1;
-      }
     }
   }
 }
@@ -997,55 +1045,91 @@ dl {
 
 /* Smartphone */
 .page-training {
-  /* Einleitung */
+  /* ========================================
+     Einleitung und Hero-Bild
+     ======================================== */
+
   & .training-intro {
+    grid-column: 1 / -1;
     display: grid;
+    width: 100%;
+    min-width: 0;
     gap: var(--space-md);
 
-    & > h1 {
-      grid-column: 1 / -1;
+    & h1,
+    & p {
+      margin: 0;
+    }
+  }
+
+  & .training-hero-image {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+    overflow: hidden;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    border: 0.0625rem solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-image-background);
+    box-shadow: var(--shadow-medium);
+
+    & img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: center;
     }
 
-    & figure {
-      width: min(100%, 20rem);
-      margin: 0 auto;
+    & figcaption {
+      padding: var(--space-xs) var(--space-sm);
+      color: var(--color-text-light);
+      font-size: 0.875rem;
+      text-align: center;
+    }
+
+    /* Bild der Belastungssteuerung zunächst ausblenden */
+    & .training-load-image {
+      display: none;
+      overflow: hidden;
+      width: 90%;
+      margin: var(--space-md) auto 0;
+      border-radius: var(--border-radius);
+      background-color: var(--color-image-background);
 
       & img {
         display: block;
         width: 100%;
-        height: auto;
-        aspect-ratio: 3 / 2;
-        object-fit: cover;
-        border-radius: var(--border-radius);
-      }
-
-      & figcaption {
-        margin-block-start: var(--space-xs);
-        font-size: 0.875rem;
-        text-align: center;
+        height: 12rem;
+        object-fit: contain;
+        object-position: center;
       }
     }
   }
 
-  /* Kartenbereiche */
-  & .training-areas,
-  & .training-week,
-  & .training-load {
-    display: grid;
-    gap: var(--space-sm);
-  }
+  /* ========================================
+     Trainingsbereiche
+     ======================================== */
 
-  & .training-areas > h2,
-  & .training-week > h2,
-  & .training-week > p,
-  & .training-load > h2 {
-    grid-column: 1 / -1;
-  }
-
-  /* Trainingsbereiche und Piktogramme */
   & .training-areas {
-    & article h3 {
-      text-align: center;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-sm);
+    min-width: 0;
+
+    & > h2 {
+      grid-column: 1 / -1;
+      margin-block-end: var(--space-xs);
+    }
+
+    & article {
+      min-width: 0;
+
+      & h3 {
+        text-align: center;
+      }
     }
 
     & .training-icon {
@@ -1058,19 +1142,164 @@ dl {
     }
   }
 
-  /* Trainingsphasen */
+  /* ========================================
+     Wochenstruktur
+     ======================================== */
+
+  & .training-week {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+    min-width: 0;
+
+    & > h2,
+    & > p {
+      margin: 0;
+    }
+
+    & > article {
+      display: grid;
+      align-content: start;
+      gap: var(--space-xs);
+      min-width: 0;
+
+      & h3,
+      & p {
+        margin: 0;
+      }
+    }
+  }
+
+  /* Überschrift außerhalb des Scrollbereichs */
+  & .training-table-title {
+    margin: var(--space-xs) 0 0;
+    color: var(--color-primary);
+    font-size: 1.125rem;
+  }
+
+  /* Scrollhinweis für Smartphones */
+  & .training-table-hint {
+    margin: 0;
+    color: var(--color-text-light);
+    font-size: 0.875rem;
+  }
+
+  /* Horizontal scrollbarerer Tabellenbereich */
+  & .training-table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    border: 0.0625rem solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-surface);
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+
+    &:focus-visible {
+      outline: 0.1875rem solid var(--color-focus);
+      outline-offset: 0.1875rem;
+    }
+  }
+
+  /* Beispieltrainingswoche */
+  & .training-table-wrapper table {
+    width: 100%;
+    min-width: 26rem;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+
+    & th,
+    & td {
+      padding: 0.75rem var(--space-sm);
+      border-block-start: 0.0625rem solid var(--color-border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    & thead {
+      background-color: var(--color-primary);
+      color: var(--color-surface);
+
+      & th {
+        border-block-start: 0;
+      }
+    }
+
+    & tbody th {
+      color: var(--color-primary);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    & tbody td {
+      overflow-wrap: break-word;
+    }
+
+    & tbody tr:nth-child(even) {
+      background-color: var(--color-surface-soft);
+    }
+
+    & tbody tr:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--color-secondary) 8%,
+        var(--color-surface)
+      );
+    }
+  }
+
+  /* ========================================
+     Belastungssteuerung
+     ======================================== */
+
+  & .training-load {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-sm);
+    min-width: 0;
+
+    & > h2 {
+      grid-column: 1 / -1;
+      margin-block-end: var(--space-xs);
+    }
+
+    & article {
+      min-width: 0;
+    }
+  }
+
+  /* Bild nur für die Desktopansicht */
+  & .training-load-image {
+    display: none;
+  }
+
+  /* ========================================
+     Trainingsphasen
+     ======================================== */
+
   & .training-phase {
+    min-width: 0;
+
     & > p {
       margin-block-end: var(--space-md);
     }
   }
 
+  /* Phasen bleiben in allen Ansichten untereinander */
   & .training-phases {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-sm);
     margin: 0;
     padding: 0;
     list-style: none;
+
+    & li {
+      min-width: 0;
+      margin: 0;
+    }
+
     & article,
     & details {
       height: 100%;
@@ -1080,7 +1309,7 @@ dl {
       background-color: var(--color-surface);
     }
 
-    /* Aktuelle Phase */
+    /* Aktuelle Trainingsphase */
     & li[aria-current="step"] article {
       border: 0.125rem solid var(--color-secondary);
       background-color: color-mix(
@@ -1130,6 +1359,22 @@ dl {
       margin-block-end: 0;
     }
   }
+
+  /* ========================================
+     Trainingsgrundsätze
+     ======================================== */
+
+  & .training-principles {
+    min-width: 0;
+
+    & ul {
+      padding-inline-start: var(--space-md);
+    }
+
+    & li + li {
+      margin-block-start: var(--space-xs);
+    }
+  }
 }
 
 /* ========================================
@@ -1142,44 +1387,40 @@ dl {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    /* Große Bereiche über die gesamte Breite */
     & .training-intro,
     & .training-areas,
     & .training-week,
-    & .training-load,
-    & .training-phase,
-    & .training-principles {
+    & .training-load {
       grid-column: 1 / -1;
     }
 
-    /* Einleitungstext links, kleineres Bild rechts */
-    & .training-intro {
-      grid-template-columns: minmax(0, 1fr) minmax(12rem, 18rem);
-      align-items: center;
-
-      & > h1 {
-        grid-column: 1 / -1;
-      }
-
-      & > p {
-        grid-column: 1;
-      }
-
-      & > figure {
-        grid-column: 2;
-        grid-row: 2 / span 2;
-        align-self: center;
-        width: 100%;
-      }
-    }
-
-    /* Zwei mal zwei Trainingsbereiche */
+    /* Trainingsbereiche als 2 × 2 Raster */
     & .training-areas {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    /* Zwei mal zwei Bestandteile der Trainingswoche */
+    /* Bestandteile der Trainingswoche als 2 × 2 Raster */
     & .training-week {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      & > h2,
+      & > p,
+      & > .training-table-title,
+      & > .training-table-hint,
+      & > .training-table-wrapper {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* Scrollhinweis wird nicht mehr benötigt */
+    & .training-table-hint {
+      display: none;
+    }
+
+    & .training-table-wrapper table {
+      min-width: 28rem;
+      font-size: 1rem;
     }
 
     /* Drei Belastungsstufen nebeneinander */
@@ -1187,9 +1428,25 @@ dl {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    /* Trainingsphasen in zwei Spalten */
-    & .training-phases {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* Trainingsphasen links */
+    & .training-phase {
+      grid-column: 1;
+    }
+
+    /* Grundsätze rechts und gleich hoch */
+    & .training-principles {
+      grid-column: 2;
+      align-self: stretch;
+      height: 100%;
+    }
+    /* Bild innerhalb der Trainingsprinzipien anzeigen */
+    & .training-load-image--tablet {
+      display: block;
+    }
+
+    /* Desktopvariante weiterhin ausblenden */
+    & .training-load-image--desktop {
+      display: none;
     }
   }
 }
@@ -1210,41 +1467,70 @@ dl {
       grid-column: 1 / -1;
     }
 
-    /* Einleitungsbild bleibt rechts und kompakt */
-    & .training-intro {
-      grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 18rem);
-    }
-
     /* Vier Trainingsbereiche nebeneinander */
     & .training-areas {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    /* Wochenstruktur links */
+    /* Wochenstruktur links auf zwei Dritteln */
     & .training-week {
       grid-column: 1;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       align-content: start;
+
+      & > h2,
+      & > p,
+      & > .training-table-title,
+      & > .training-table-hint,
+      & > .training-table-wrapper {
+        grid-column: 1 / -1;
+      }
     }
 
-    /* Belastungssteuerung rechts */
+    /* Belastungssteuerung rechts auf einem Drittel */
     & .training-load {
       grid-column: 2;
       grid-template-columns: 1fr;
+      align-content: start;
     }
 
-    /* Trainingsphasen links */
+    /* Bild der Belastungssteuerung nur auf dem Desktop */
+    & .training-load-image {
+      display: block;
+      overflow: hidden;
+      width: 100%;
+      margin: var(--space-sm) auto 0;
+      border-radius: var(--border-radius);
+      background-color: var(--color-image-background);
+
+      & img {
+        display: block;
+        width: 100%;
+        height: 24rem;
+        object-fit: contain;
+        object-position: center;
+      }
+    }
+
+    /* Trainingsphasen links und untereinander */
     & .training-phase {
       grid-column: 1;
     }
 
-    & .training-phases {
-      grid-template-columns: 1fr;
-    }
-
-    /* Trainingsgrundsätze rechts */
+    /* Grundsätze rechts und gleich hoch */
     & .training-principles {
       grid-column: 2;
+      align-self: stretch;
+      height: 100%;
+    }
+    /* Tabletvariante wieder ausblenden */
+    & .training-load-image--tablet {
+      display: none;
+    }
+
+    /* Bild in der Belastungssteuerung anzeigen */
+    & .training-load-image--desktop {
+      display: block;
     }
   }
 }
@@ -1253,33 +1539,43 @@ dl {
    Wettkämpfe
    ======================================== */
 
+/* Smartphone */
 .page-competitions {
+  /* ========================================
+     Einleitung und Hero-Bild
+     ======================================== */
+
   & .competitions-intro {
     display: grid;
     gap: var(--space-md);
 
-    & > h1 {
-      grid-column: 1 / -1;
+    & h1,
+    & p {
+      margin: 0;
+    }
+  }
+
+  & .competitions-hero-image {
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
+    border: 0.0625rem solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-image-background);
+    box-shadow: var(--shadow-medium);
+
+    & img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: center;
     }
 
-    & figure {
-      width: min(100%, 20rem);
-      margin: 0 auto;
-
-      & img {
-        display: block;
-        width: 100%;
-        height: auto;
-        aspect-ratio: 3 / 2;
-        object-fit: cover;
-        border-radius: var(--border-radius);
-      }
-
-      & figcaption {
-        margin-block-start: var(--space-xs);
-        font-size: 0.875rem;
-        text-align: center;
-      }
+    & figcaption {
+      padding: var(--space-xs) var(--space-sm);
+      color: var(--color-text-light);
+      font-size: 0.875rem;
+      text-align: center;
     }
   }
 
@@ -1291,10 +1587,11 @@ dl {
     & article {
       display: grid;
       gap: var(--space-sm);
+      min-width: 0;
     }
 
     & h3 {
-      margin-block: 0;
+      margin: 0;
     }
 
     & dl {
@@ -1320,7 +1617,7 @@ dl {
     & dd {
       min-width: 0;
       margin: var(--space-xs) 0 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
   }
 
@@ -1336,25 +1633,24 @@ dl {
     font-weight: 700;
   }
 
-  /* Streckenbild */
+  /* Streckenbild des Hamburg-Marathons */
   & .competition-route {
     width: 100%;
     max-width: 42rem;
     margin: var(--space-sm) auto;
 
     & img {
-      display: block;
       width: 100%;
-      height: auto;
       max-height: 26rem;
       object-fit: contain;
       border: 0.0625rem solid var(--color-border);
       border-radius: var(--border-radius);
-      background-color: var(--color-surface);
+      background-color: var(--color-image-background);
     }
 
     & figcaption {
       margin-block-start: var(--space-xs);
+      color: var(--color-text-light);
       font-size: 0.875rem;
       text-align: center;
 
@@ -1380,6 +1676,7 @@ dl {
 
   & .competitions-preparation {
     display: grid;
+    grid-template-columns: 1fr;
     gap: var(--space-sm);
     margin: 0;
     padding: 0;
@@ -1387,6 +1684,7 @@ dl {
 
     & li {
       min-width: 0;
+      margin: 0;
     }
 
     & details {
@@ -1397,12 +1695,12 @@ dl {
       background-color: var(--color-surface);
     }
 
+    /* Aufklappbare Überschrift */
     & summary {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
       gap: var(--space-xs) var(--space-sm);
-      min-width: 0;
       color: var(--color-primary);
       list-style: none;
       cursor: pointer;
@@ -1412,8 +1710,9 @@ dl {
       }
 
       &::after {
+        grid-column: 2;
+        grid-row: 2;
         content: "+";
-        flex: 0 0 auto;
         font-size: 1.5rem;
         font-weight: 700;
         line-height: 1;
@@ -1429,26 +1728,29 @@ dl {
       }
     }
 
-    & details[open] summary {
-      margin-block-end: var(--space-md);
+    & details[open] {
+      & summary {
+        margin-block-end: var(--space-md);
 
-      &::after {
-        content: "−";
+        &::after {
+          content: "−";
+        }
       }
     }
 
     /* Wettkampfname */
     & .competition-title {
-      flex: 1 1 12rem;
+      grid-column: 1 / -1;
       min-width: 0;
       font-size: 1.125rem;
       font-weight: 700;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     /* Statusmarkierungen */
     & .competition-state {
-      flex: 0 0 auto;
+      grid-column: 1;
+      justify-self: start;
       padding: 0.25rem 0.625rem;
       border-radius: 999rem;
       font-size: 0.8125rem;
@@ -1467,49 +1769,36 @@ dl {
     }
 
     & .competition-state.open {
-      border: 0.125rem solid var(--color-border-strong);
+      border: 0.0625rem solid var(--color-border-strong);
       background-color: var(--color-surface);
       color: var(--color-primary);
     }
 
-    /* Daten innerhalb eines Vorbereitungslaufs */
+    /* Daten eines Vorbereitungslaufs */
     & dl {
       display: grid;
       grid-template-columns: 1fr;
-      gap: var(--space-sm);
+      gap: 0;
       margin: 0 0 var(--space-md);
     }
 
     & dl > div {
       display: grid;
-      grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr);
-      gap: var(--space-sm);
+      gap: 0.25rem;
       min-width: 0;
-      padding: var(--space-sm);
-      border: 0.0625rem solid var(--color-border);
-      border-inline-start: 0.25rem solid var(--color-secondary);
-      border-radius: var(--border-radius);
-      background-color: color-mix(
-        in srgb,
-        var(--color-primary) 5%,
-        var(--color-surface)
-      );
+      padding-block: var(--space-xs);
+      border-block-end: 0.0625rem solid var(--color-border);
     }
 
     & dt {
-      min-width: 0;
+      color: var(--color-text-light);
       font-weight: 700;
     }
 
     & dd {
       min-width: 0;
       margin: 0;
-      overflow-wrap: anywhere;
-      hyphens: auto;
-    }
-
-    & p {
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     & p:last-child {
@@ -1547,28 +1836,52 @@ dl {
       margin: var(--space-xs) 0 0;
       color: var(--color-secondary);
       font-weight: 700;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
+    }
+
+    & p:last-of-type {
+      margin-block-end: var(--space-md);
+    }
+  }
+
+  /* ========================================
+     Hinweis zu Vorbereitungswettkämpfen
+     ======================================== */
+
+  & .competitions-note {
+    & p:last-child {
+      margin-block-end: 0;
     }
   }
 }
 
-/* Sehr kleine Smartphones bis 352 Pixel */
-@media (max-width: 22rem) {
+/* ========================================
+   Etwas breitere Smartphones ab 480 Pixel
+   ======================================== */
+
+@media (min-width: 30rem) {
   .page-competitions {
     & .competitions-preparation {
-      & details {
-        padding: var(--space-sm);
+      & summary {
+        grid-template-columns: minmax(0, 1fr) auto auto;
+
+        &::after {
+          grid-column: 3;
+          grid-row: 1;
+        }
+      }
+
+      & .competition-title {
+        grid-column: 1;
+      }
+
+      & .competition-state {
+        grid-column: 2;
       }
 
       & dl > div {
-        grid-template-columns: 1fr;
-        gap: 0.25rem;
-      }
-
-      & dd {
-        overflow-wrap: normal;
-        word-break: normal;
-        hyphens: none;
+        grid-template-columns: minmax(6rem, 0.4fr) minmax(0, 1fr);
+        gap: var(--space-sm);
       }
     }
   }
@@ -1590,28 +1903,12 @@ dl {
         "note note";
     }
 
+    /* Einleitung über die gesamte Breite */
     & .competitions-intro {
       grid-area: intro;
-      grid-template-columns: minmax(0, 1fr) minmax(12rem, 18rem);
-      align-items: start;
-
-      & > h1 {
-        grid-column: 1 / -1;
-      }
-
-      & > p {
-        grid-column: 1;
-        align-self: start;
-      }
-
-      & > figure {
-        grid-column: 2;
-        grid-row: 2;
-        align-self: start;
-        width: 100%;
-      }
     }
 
+    /* Hauptwettkampf über die gesamte Breite */
     & .competitions-main {
       grid-area: main;
 
@@ -1620,6 +1917,7 @@ dl {
       }
     }
 
+    /* Bilanz unmittelbar unter dem Hauptwettkampf */
     & .competitions-balance {
       grid-area: balance;
 
@@ -1628,6 +1926,7 @@ dl {
       }
     }
 
+    /* Vorbereitungsläufe über die gesamte Breite */
     & .competitions-planned {
       grid-area: planned;
     }
@@ -1635,10 +1934,16 @@ dl {
     & .competitions-preparation {
       & dl {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--space-sm);
+        gap: 0 var(--space-md);
+      }
+
+      & dl > div {
+        grid-template-columns: 1fr;
+        align-content: start;
       }
     }
 
+    /* Hinweis über die gesamte Breite */
     & .competitions-note {
       grid-area: note;
     }
@@ -1659,20 +1964,28 @@ dl {
         "planned note";
     }
 
-    & .competitions-intro {
-      grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 18rem);
-    }
-
+    /* Hauptwettkampf links */
     & .competitions-main {
       & dl {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
+    /* Bilanz rechts neben dem Hauptwettkampf */
     & .competitions-balance {
       & dl {
         grid-template-columns: 1fr;
       }
+    }
+
+    /* Vorbereitungsläufe links */
+    & .competitions-planned {
+      align-self: stretch;
+    }
+
+    & .competitions-note {
+      align-self: stretch;
+      height: 100%;
     }
   }
 }
@@ -1682,13 +1995,19 @@ dl {
    ======================================== */
 
 .page-equipment {
+  /* ========================================
+     Ausrüstungsbereiche
+     ======================================== */
+
   & .equipment-running,
   & .equipment-cycling,
   & .equipment-swimming,
   & .equipment-homegym {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     align-content: start;
     gap: var(--space-sm);
+    min-width: 0;
 
     & > h2 {
       margin: 0;
@@ -1701,6 +2020,7 @@ dl {
 
   & article {
     display: flex;
+    min-width: 0;
     height: 100%;
     flex-direction: column;
     gap: var(--space-sm);
@@ -1720,18 +2040,21 @@ dl {
   & .equipment-image {
     display: grid;
     width: 100%;
-    height: 14rem;
+    height: 15rem;
     overflow: hidden;
     place-items: center;
+    margin: 0;
+    padding: var(--space-sm);
     border: 0.0625rem solid var(--color-border);
     border-radius: var(--border-radius);
     background-color: var(--color-image-background);
 
     & img {
       display: block;
-      width: 100%;
-      height: 100%;
-      padding: var(--space-xs);
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
       object-position: center;
     }
@@ -1743,6 +2066,7 @@ dl {
 
   & .equipment-purpose {
     align-self: flex-start;
+    margin: 0;
     padding: 0.25rem 0.625rem;
     border-radius: 999rem;
     background-color: var(--color-secondary);
@@ -1758,7 +2082,7 @@ dl {
 
   & article dl {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-xs);
     margin-block-start: auto;
   }
@@ -1769,6 +2093,10 @@ dl {
     gap: var(--space-sm);
     padding-block: var(--space-xs);
     border-bottom: 0.0625rem solid var(--color-border);
+  }
+
+  & article dl > div:last-child {
+    border-bottom: 0;
   }
 
   & article dt {
@@ -1786,6 +2114,8 @@ dl {
      ======================================== */
 
   & .equipment-note {
+    min-width: 0;
+
     & p:last-child {
       margin-block-end: 0;
     }
@@ -1799,7 +2129,7 @@ dl {
 @media (max-width: 22rem) {
   .page-equipment {
     & article dl > div {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 0.25rem;
     }
 
@@ -1810,6 +2140,7 @@ dl {
     }
 
     & .equipment-purpose {
+      max-width: 100%;
       overflow-wrap: anywhere;
     }
   }
@@ -1831,14 +2162,19 @@ dl {
         "swimming note";
     }
 
+    /* Einleitung */
+    & .equipment-intro {
+      grid-area: intro;
+    }
+
     /* Einheitliche Höhe der Kartenüberschriften */
     & article h3 {
       min-height: 3.25rem;
     }
 
-    /* Einleitung */
-    & .equipment-intro {
-      grid-area: intro;
+    /* Einheitliche Bildhöhe in der Tablet-Ansicht */
+    & .equipment-image {
+      height: 20rem;
     }
 
     /* Laufausrüstung */
@@ -1879,6 +2215,8 @@ dl {
     /* Persönlicher Hinweis */
     & .equipment-note {
       grid-area: note;
+      align-self: stretch;
+      height: 100%;
     }
   }
 }
@@ -1905,6 +2243,11 @@ dl {
       & > h2 {
         grid-column: 1 / -1;
       }
+
+      /* Kleinere Bildhöhe in den schmaleren Laufkarten */
+      & .equipment-image {
+        height: 15rem;
+      }
     }
 
     /* Zwei Fahrradkarten nebeneinander */
@@ -1923,6 +2266,13 @@ dl {
       & > h2 {
         grid-column: 1 / -1;
       }
+    }
+
+    /* Bildhöhe in den breiteren Karten */
+    & .equipment-cycling .equipment-image,
+    & .equipment-swimming .equipment-image,
+    & .equipment-homegym .equipment-image {
+      height: 14rem;
     }
   }
 }
