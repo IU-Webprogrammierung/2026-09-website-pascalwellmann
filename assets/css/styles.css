@@ -107,13 +107,13 @@ h3 {
 
 h1 {
   margin-block-end: var(--space-md);
-  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-size: clamp(1.75rem, 7vw, 3.5rem);
   letter-spacing: -0.025em;
 }
 
 h2 {
   margin-block-end: var(--space-sm);
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-size: clamp(1.375rem, 5vw, 2rem);
   letter-spacing: -0.015em;
 }
 
@@ -675,12 +675,108 @@ dl {
    Startseite
    ======================================== */
 
+/* Smartphone */
 .page-home {
+  /* Einleitungsbereich */
+  & .home-intro {
+    display: grid;
+    gap: var(--space-md);
+
+    & .home-kicker {
+      margin: 0;
+      color: var(--color-secondary);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    & h1 {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    & .home-intro-text {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      color: var(--color-text-light);
+      font-size: 1.0625rem;
+    }
+
+    & .button-group {
+      margin: 0;
+    }
+  }
+
+  /* Großes Einleitungsbild */
+  & .home-hero-image {
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
+    border: 0.0625rem solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-image-background);
+    box-shadow: var(--shadow-medium);
+
+    & img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  /* Kennzahlen */
   & .home-stats {
     display: grid;
     gap: var(--space-sm);
+
+    & > h2 {
+      margin-block-end: var(--space-xs);
+    }
+
+    & article {
+      display: grid;
+      align-content: start;
+      gap: var(--space-xs);
+    }
+
+    & article h3 {
+      margin: 0;
+    }
+
+    & article p {
+      margin: 0;
+      color: var(--color-secondary);
+      font-size: 1.125rem;
+      font-weight: 700;
+    }
+  }
+
+  /* Aktueller Trainingsstand */
+  & .home-status {
+    & p:last-of-type {
+      margin-block-end: var(--space-md);
+    }
+  }
+
+  /* Nächster Meilenstein */
+  & .home-next {
+    & h3 {
+      color: var(--color-secondary);
+    }
+
+    & p {
+      margin-block-end: var(--space-md);
+    }
   }
 }
+
+/* ========================================
+   Tablet ab 768 Pixel
+   ======================================== */
 
 @media (min-width: 48rem) {
   .page-home {
@@ -688,20 +784,48 @@ dl {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    & .home-intro,
-    & .home-stats {
+    /* Einleitung über die gesamte Breite */
+    & .home-intro {
       grid-column: 1 / -1;
+
+      & .home-intro-text {
+        font-size: 1.125rem;
+      }
     }
 
+    & .home-hero-image {
+      margin-block-start: var(--space-xs);
+
+      & img {
+        max-height: 27rem;
+        object-fit: cover;
+      }
+    }
+
+    /* Kennzahlen über die gesamte Breite */
     & .home-stats {
+      grid-column: 1 / -1;
       grid-template-columns: repeat(2, minmax(0, 1fr));
 
       & > h2 {
         grid-column: 1 / -1;
       }
     }
+
+    /* Trainingsstand und Meilenstein nebeneinander */
+    & .home-status {
+      grid-column: 1;
+    }
+
+    & .home-next {
+      grid-column: 2;
+    }
   }
 }
+
+/* ========================================
+   Desktop ab 1200 Pixel
+   ======================================== */
 
 @media (min-width: 75rem) {
   .page-home {
@@ -709,8 +833,27 @@ dl {
       grid-template-columns: 2fr 1fr;
     }
 
+    & .home-intro {
+      grid-column: 1 / -1;
+    }
+
+    & .home-hero-image {
+      & img {
+        max-height: 31rem;
+      }
+    }
+
     & .home-stats {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    & .home-status {
+      grid-column: 1;
+    }
+
+    & .home-next {
+      grid-column: 2;
     }
   }
 }
