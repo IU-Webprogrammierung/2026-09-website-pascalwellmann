@@ -3,10 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Einblick in meine Trainingsbereiche, Wochenstruktur und Trainingsphasen auf dem Weg zum Hamburg-Marathon 2027."
+    />
+
     <title>Training | Road to Hamburg</title>
+
     <link rel="stylesheet" href="assets/css/styles.css" />
     <script src="assets/js/components.js" defer></script>
   </head>
+
   <body class="page-training">
     <site-header></site-header>
 
@@ -17,7 +25,7 @@
         <figure class="training-hero-image">
           <img
             src="assets/img/training-hero.png"
-            alt="Lauftraining als Teil meiner Vorbereitung auf den Hamburg-Marathon"
+            alt="Tartanbahn mit Trainingshürden, Markierungskegeln und Trinkflasche"
             width="1200"
             height="800"
           />
@@ -43,7 +51,9 @@
             width="80"
             height="80"
           />
+
           <h3>Laufen</h3>
+
           <p>
             Das Lauftraining bildet den Schwerpunkt meiner Vorbereitung. Lockere
             Dauerläufe verbessern die Grundlagenausdauer, während lange Läufe
@@ -61,7 +71,9 @@
             width="80"
             height="80"
           />
+
           <h3>Radfahren</h3>
+
           <p>
             Das Radtraining ermöglicht zusätzliche Ausdauereinheiten bei
             geringerer Stoßbelastung. Je nach Wetter und verfügbarer Zeit
@@ -77,7 +89,9 @@
             width="80"
             height="80"
           />
+
           <h3>Schwimmen</h3>
+
           <p>
             Schwimmen bietet einen gelenkschonenden Ausgleich zum Laufen. Es
             trainiert die Ausdauer, beansprucht den gesamten Körper und bringt
@@ -93,7 +107,9 @@
             width="80"
             height="80"
           />
+
           <h3>Krafttraining</h3>
+
           <p>
             Regelmäßiges Krafttraining soll meine Rumpfstabilität, Laufhaltung
             und allgemeine Belastbarkeit verbessern. Dabei trainiere ich
@@ -103,12 +119,13 @@
       </section>
 
       <section class="training-week">
-        <h2 id="training-week-heading">Meine Wochenstruktur</h2>
+        <h2>Meine Wochenstruktur</h2>
 
         <p>Folgende Einheiten bilden den grundlegenden Rahmen:</p>
 
         <article>
           <h3>Lockere Dauerläufe</h3>
+
           <p>
             Mehrere ruhige Läufe bilden die Grundlage der Trainingswoche. Dabei
             stehen eine kontrollierte Belastung und der Aufbau der aeroben
@@ -118,6 +135,7 @@
 
         <article>
           <h3>Qualitätseinheit</h3>
+
           <p>
             Abhängig von der Trainingsphase ergänze ich das Grundlagentraining
             durch Tempowechsel, Steigerungsläufe oder später durch gezielte
@@ -127,6 +145,7 @@
 
         <article>
           <h3>Langer Lauf</h3>
+
           <p>
             Der lange Lauf findet normalerweise am Wochenende statt. Seine Länge
             wird schrittweise gesteigert, damit sich Ausdauer, Muskulatur und
@@ -136,6 +155,7 @@
 
         <article>
           <h3>Ergänzungstraining</h3>
+
           <p>
             Krafttraining, Radfahren und Schwimmen ergänzen die Laufeinheiten.
             Sie verbessern die allgemeine Fitness und ermöglichen zusätzliche
@@ -156,10 +176,16 @@
           Beispielwoche in der Grundlagenphase
         </h3>
 
+        <p id="training-table-hint" class="training-table-hint">
+          Hinweis: Auf kleinen Bildschirmen kann die Tabelle horizontal
+          gescrollt werden.
+        </p>
+
         <div
           class="training-table-wrapper"
           role="region"
           aria-labelledby="training-table-title"
+          aria-describedby="training-table-hint"
           tabindex="0"
         >
           <table aria-labelledby="training-table-title">
@@ -210,16 +236,12 @@
 
               <tr>
                 <th scope="row">So.</th>
-                <td>Langstrecke</td>
+                <td>Langer Lauf</td>
                 <td>Belastbarkeit</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p class="training-table-hint">
-          Hinweis: Auf kleinen Bildschirmen kann die Tabelle horizontal
-          gescrollt werden.
-        </p>
       </section>
 
       <section class="training-load">
@@ -227,6 +249,7 @@
 
         <article>
           <h3>Locker</h3>
+
           <p>
             Der größte Teil meines Ausdauertrainings wird mit ruhiger und
             kontrollierter Intensität absolviert. Ein Gespräch sollte
@@ -236,6 +259,7 @@
 
         <article>
           <h3>Moderat</h3>
+
           <p>
             Moderate Einheiten fühlen sich deutlich anstrengender an, bleiben
             aber kontrollierbar. Sie werden bewusst eingesetzt und bilden nicht
@@ -245,6 +269,7 @@
 
         <article>
           <h3>Intensiv</h3>
+
           <p>
             Intensive Einheiten setzen gezielte Reize für Geschwindigkeit und
             Leistungsfähigkeit. Weil sie eine längere Erholung erfordern, werden
@@ -253,7 +278,10 @@
           </p>
         </article>
 
-        <figure class="training-load-image training-load-image--desktop">
+        <figure
+          class="training-load-image training-load-image--desktop"
+          aria-hidden="true"
+        >
           <img
             src="assets/img/training-load-image.png"
             alt=""
@@ -277,6 +305,7 @@
           <li aria-current="step">
             <article>
               <p class="phase-status">Aktuelle Phase</p>
+
               <h3>Grundlagenphase</h3>
 
               <p>
@@ -357,6 +386,7 @@
           <li>Fortschritte regelmäßig dokumentieren und auswerten</li>
           <li>Ernährung und Verpflegung bereits im Training erproben</li>
         </ul>
+
         <figure
           class="training-load-image training-load-image--tablet"
           aria-hidden="true"

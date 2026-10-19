@@ -71,6 +71,23 @@ body {
   line-height: 1.6;
 }
 
+/* Inhalte nur für Screenreader zugänglich machen */
+.visually-hidden {
+  position: absolute;
+  width: 0.0625rem;
+  height: 0.0625rem;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+site-header,
+site-footer {
+  display: block;
+}
+
 /* ========================================
    Grundlegende Inhaltselemente
    ======================================== */
@@ -102,7 +119,7 @@ h3 {
   line-height: 1.2;
   text-wrap: balance;
   hyphens: auto;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 h1 {
@@ -153,11 +170,6 @@ a {
 
 a:hover {
   color: var(--color-accent);
-}
-
-a:focus-visible {
-  outline: 0.1875rem solid var(--color-focus);
-  outline-offset: 0.1875rem;
 }
 
 /* ========================================
@@ -353,15 +365,6 @@ site-header[data-menu-open] {
   & .menu-toggle::before {
     content: "×";
   }
-
-  & .menu-toggle span {
-    font-size: 0;
-
-    &::after {
-      content: "Schließen";
-      font-size: 1rem;
-    }
-  }
 }
 
 /* ========================================
@@ -540,11 +543,6 @@ main {
   & > aside {
     border-inline-start: 0.375rem solid var(--color-accent);
   }
-
-  & > section:last-child,
-  & > aside:last-child {
-    margin-block-end: 0;
-  }
 }
 
 /* ========================================
@@ -675,9 +673,8 @@ dl {
    Startseite
    ======================================== */
 
-/* Smartphone */
 .page-home {
-  /* Einleitungsbereich */
+  /* Einleitung */
   & .home-intro {
     display: grid;
     gap: var(--space-md);
@@ -691,26 +688,19 @@ dl {
       text-transform: uppercase;
     }
 
-    & h1 {
-      width: 100%;
-      max-width: none;
+    & h1,
+    & .home-intro-text,
+    & .button-group {
       margin: 0;
     }
 
     & .home-intro-text {
-      width: 100%;
-      max-width: none;
-      margin: 0;
       color: var(--color-text-light);
       font-size: 1.0625rem;
     }
-
-    & .button-group {
-      margin: 0;
-    }
   }
 
-  /* Großes Einleitungsbild */
+  /* Hero-Bild */
   & .home-hero-image {
     overflow: hidden;
     width: 100%;
@@ -722,7 +712,7 @@ dl {
 
     & img {
       width: 100%;
-      height: auto;
+      aspect-ratio: 16 / 9;
       object-fit: cover;
       object-position: center;
     }
@@ -741,25 +731,23 @@ dl {
       display: grid;
       align-content: start;
       gap: var(--space-xs);
-    }
 
-    & article h3 {
-      margin: 0;
-    }
+      & h3,
+      & p {
+        margin: 0;
+      }
 
-    & article p {
-      margin: 0;
-      color: var(--color-secondary);
-      font-size: 1.125rem;
-      font-weight: 700;
+      & p {
+        color: var(--color-secondary);
+        font-size: 1.125rem;
+        font-weight: 700;
+      }
     }
   }
 
   /* Aktueller Trainingsstand */
-  & .home-status {
-    & p:last-of-type {
-      margin-block-end: var(--space-md);
-    }
+  & .home-status p:last-of-type {
+    margin-block-end: var(--space-md);
   }
 
   /* Nächster Meilenstein */
@@ -775,7 +763,7 @@ dl {
 }
 
 /* ========================================
-   Tablet ab 768 Pixel
+   Startseite: Tablet ab 768 Pixeln
    ======================================== */
 
 @media (min-width: 48rem) {
@@ -784,27 +772,20 @@ dl {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    /* Einleitung über die gesamte Breite */
-    & .home-intro {
+    & .home-intro,
+    & .home-stats {
       grid-column: 1 / -1;
+    }
 
-      & .home-intro-text {
-        font-size: 1.125rem;
-      }
+    & .home-intro-text {
+      font-size: 1.125rem;
     }
 
     & .home-hero-image {
       margin-block-start: var(--space-xs);
-
-      & img {
-        max-height: 27rem;
-        object-fit: cover;
-      }
     }
 
-    /* Kennzahlen über die gesamte Breite */
     & .home-stats {
-      grid-column: 1 / -1;
       grid-template-columns: repeat(2, minmax(0, 1fr));
 
       & > h2 {
@@ -812,7 +793,6 @@ dl {
       }
     }
 
-    /* Trainingsstand und Meilenstein nebeneinander */
     & .home-status {
       grid-column: 1;
     }
@@ -824,7 +804,7 @@ dl {
 }
 
 /* ========================================
-   Desktop ab 1200 Pixel
+   Startseite: Desktop ab 1200 Pixeln
    ======================================== */
 
 @media (min-width: 75rem) {
@@ -833,27 +813,8 @@ dl {
       grid-template-columns: 2fr 1fr;
     }
 
-    & .home-intro {
-      grid-column: 1 / -1;
-    }
-
-    & .home-hero-image {
-      & img {
-        max-height: 31rem;
-      }
-    }
-
     & .home-stats {
-      grid-column: 1 / -1;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    & .home-status {
-      grid-column: 1;
-    }
-
-    & .home-next {
-      grid-column: 2;
     }
   }
 }
@@ -862,8 +823,8 @@ dl {
    Mein Weg
    ======================================== */
 
-/* Smartphone */
 .page-journey {
+  /* Einleitung */
   & .journey-intro {
     grid-column: 1 / -1;
     display: grid;
@@ -877,9 +838,8 @@ dl {
     }
   }
 
-  & .journey-intro > figure {
-    grid-column: 1 / -1;
-    justify-self: stretch;
+  /* Hero-Bild */
+  & .journey-hero-image {
     overflow: hidden;
     width: 100%;
     min-width: 0;
@@ -890,9 +850,7 @@ dl {
     box-shadow: var(--shadow-medium);
 
     & img {
-      display: block;
       width: 100%;
-      height: auto;
       aspect-ratio: 16 / 9;
       object-fit: cover;
       object-position: center;
@@ -906,14 +864,11 @@ dl {
     }
   }
 
-  /* ========================================
-     Marathonstationen
-     ======================================== */
-
+  /* Marathonstationen */
   & .journey-stations {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-sm);
     min-width: 0;
 
@@ -926,16 +881,14 @@ dl {
 
       & h3 {
         text-align: center;
+        text-transform: uppercase;
       }
 
-      /* Bilder innerhalb der Marathonkarten */
       & figure {
         margin: var(--space-md) 0;
 
         & img {
-          display: block;
           width: 100%;
-          height: auto;
           aspect-ratio: 3 / 2;
           object-fit: cover;
           object-position: center;
@@ -988,11 +941,6 @@ dl {
         color: var(--color-secondary);
         text-decoration: underline;
       }
-
-      &:focus-visible {
-        outline: 0.1875rem solid var(--color-focus);
-        outline-offset: 0.25rem;
-      }
     }
 
     &[open] summary {
@@ -1006,7 +954,7 @@ dl {
 }
 
 /* ========================================
-   Tablet ab 768 Pixel
+   Mein Weg: Tablet ab 768 Pixeln
    ======================================== */
 
 @media (min-width: 48rem) {
@@ -1023,7 +971,7 @@ dl {
 }
 
 /* ========================================
-   Desktop ab 1200 Pixel
+   Mein Weg: Desktop ab 1200 Pixeln
    ======================================== */
 
 @media (min-width: 75rem) {
@@ -1043,12 +991,8 @@ dl {
    Training
    ======================================== */
 
-/* Smartphone */
 .page-training {
-  /* ========================================
-     Einleitung und Hero-Bild
-     ======================================== */
-
+  /* Einleitung */
   & .training-intro {
     grid-column: 1 / -1;
     display: grid;
@@ -1062,9 +1006,8 @@ dl {
     }
   }
 
+  /* Hero-Bild */
   & .training-hero-image {
-    grid-column: 1 / -1;
-    justify-self: stretch;
     overflow: hidden;
     width: 100%;
     min-width: 0;
@@ -1075,44 +1018,14 @@ dl {
     box-shadow: var(--shadow-medium);
 
     & img {
-      display: block;
       width: 100%;
-      height: auto;
       aspect-ratio: 16 / 9;
       object-fit: cover;
       object-position: center;
     }
-
-    & figcaption {
-      padding: var(--space-xs) var(--space-sm);
-      color: var(--color-text-light);
-      font-size: 0.875rem;
-      text-align: center;
-    }
-
-    /* Bild der Belastungssteuerung zunächst ausblenden */
-    & .training-load-image {
-      display: none;
-      overflow: hidden;
-      width: 90%;
-      margin: var(--space-md) auto 0;
-      border-radius: var(--border-radius);
-      background-color: var(--color-image-background);
-
-      & img {
-        display: block;
-        width: 100%;
-        height: 12rem;
-        object-fit: contain;
-        object-position: center;
-      }
-    }
   }
 
-  /* ========================================
-     Trainingsbereiche
-     ======================================== */
-
+  /* Trainingsbereiche */
   & .training-areas {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -1142,10 +1055,7 @@ dl {
     }
   }
 
-  /* ========================================
-     Wochenstruktur
-     ======================================== */
-
+  /* Wochenstruktur */
   & .training-week {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -1170,21 +1080,20 @@ dl {
     }
   }
 
-  /* Überschrift außerhalb des Scrollbereichs */
+  /* Tabellenüberschrift und Scrollhinweis */
   & .training-table-title {
     margin: var(--space-xs) 0 0;
     color: var(--color-primary);
     font-size: 1.125rem;
   }
 
-  /* Scrollhinweis für Smartphones */
   & .training-table-hint {
     margin: 0;
     color: var(--color-text-light);
     font-size: 0.875rem;
   }
 
-  /* Horizontal scrollbarerer Tabellenbereich */
+  /* Horizontal scrollbarere Tabelle */
   & .training-table-wrapper {
     overflow-x: auto;
     width: 100%;
@@ -1202,7 +1111,6 @@ dl {
     }
   }
 
-  /* Beispieltrainingswoche */
   & .training-table-wrapper table {
     width: 100%;
     min-width: 26rem;
@@ -1249,10 +1157,7 @@ dl {
     }
   }
 
-  /* ========================================
-     Belastungssteuerung
-     ======================================== */
-
+  /* Belastungssteuerung */
   & .training-load {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -1269,15 +1174,24 @@ dl {
     }
   }
 
-  /* Bild nur für die Desktopansicht */
+  /* Responsives Bild der Belastungssteuerung */
   & .training-load-image {
     display: none;
+    overflow: hidden;
+    width: 90%;
+    margin: var(--space-md) auto 0;
+    border-radius: var(--border-radius);
+    background-color: var(--color-image-background);
+
+    & img {
+      width: 100%;
+      height: 12rem;
+      object-fit: contain;
+      object-position: center;
+    }
   }
 
-  /* ========================================
-     Trainingsphasen
-     ======================================== */
-
+  /* Trainingsphasen */
   & .training-phase {
     min-width: 0;
 
@@ -1286,7 +1200,6 @@ dl {
     }
   }
 
-  /* Phasen bleiben in allen Ansichten untereinander */
   & .training-phases {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -1338,15 +1251,7 @@ dl {
       & h3 {
         display: inline;
         margin: 0;
-      }
-
-      &:hover {
-        color: var(--color-secondary);
-      }
-
-      &:focus-visible {
-        outline: 0.1875rem solid var(--color-focus);
-        outline-offset: 0.25rem;
+        color: inherit;
       }
     }
 
@@ -1360,10 +1265,7 @@ dl {
     }
   }
 
-  /* ========================================
-     Trainingsgrundsätze
-     ======================================== */
-
+  /* Trainingsgrundsätze */
   & .training-principles {
     min-width: 0;
 
@@ -1378,7 +1280,7 @@ dl {
 }
 
 /* ========================================
-   Tablet ab 768 Pixel
+   Training: Tablet ab 768 Pixeln
    ======================================== */
 
 @media (min-width: 48rem) {
@@ -1413,7 +1315,6 @@ dl {
       }
     }
 
-    /* Scrollhinweis wird nicht mehr benötigt */
     & .training-table-hint {
       display: none;
     }
@@ -1428,23 +1329,22 @@ dl {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    /* Trainingsphasen links */
+    /* Phasen und Grundsätze nebeneinander */
     & .training-phase {
       grid-column: 1;
     }
 
-    /* Grundsätze rechts und gleich hoch */
     & .training-principles {
       grid-column: 2;
       align-self: stretch;
       height: 100%;
     }
-    /* Bild innerhalb der Trainingsprinzipien anzeigen */
+
+    /* Bild innerhalb der Trainingsgrundsätze */
     & .training-load-image--tablet {
       display: block;
     }
 
-    /* Desktopvariante weiterhin ausblenden */
     & .training-load-image--desktop {
       display: none;
     }
@@ -1452,7 +1352,7 @@ dl {
 }
 
 /* ========================================
-   Desktop ab 1200 Pixel
+   Training: Desktop ab 1200 Pixeln
    ======================================== */
 
 @media (min-width: 75rem) {
@@ -1472,7 +1372,7 @@ dl {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    /* Wochenstruktur links auf zwei Dritteln */
+    /* Wochenstruktur links */
     & .training-week {
       grid-column: 1;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1487,50 +1387,35 @@ dl {
       }
     }
 
-    /* Belastungssteuerung rechts auf einem Drittel */
+    /* Belastungssteuerung rechts */
     & .training-load {
       grid-column: 2;
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       align-content: start;
     }
 
-    /* Bild der Belastungssteuerung nur auf dem Desktop */
-    & .training-load-image {
-      display: block;
-      overflow: hidden;
-      width: 100%;
-      margin: var(--space-sm) auto 0;
-      border-radius: var(--border-radius);
-      background-color: var(--color-image-background);
-
-      & img {
-        display: block;
-        width: 100%;
-        height: 24rem;
-        object-fit: contain;
-        object-position: center;
-      }
-    }
-
-    /* Trainingsphasen links und untereinander */
-    & .training-phase {
-      grid-column: 1;
-    }
-
-    /* Grundsätze rechts und gleich hoch */
-    & .training-principles {
-      grid-column: 2;
-      align-self: stretch;
-      height: 100%;
-    }
-    /* Tabletvariante wieder ausblenden */
     & .training-load-image--tablet {
       display: none;
     }
 
-    /* Bild in der Belastungssteuerung anzeigen */
     & .training-load-image--desktop {
       display: block;
+      width: 100%;
+
+      & img {
+        height: 24rem;
+      }
+    }
+
+    /* Phasen und Grundsätze nebeneinander */
+    & .training-phase {
+      grid-column: 1;
+    }
+
+    & .training-principles {
+      grid-column: 2;
+      align-self: stretch;
+      height: 100%;
     }
   }
 }
@@ -1539,12 +1424,8 @@ dl {
    Wettkämpfe
    ======================================== */
 
-/* Smartphone */
 .page-competitions {
-  /* ========================================
-     Einleitung und Hero-Bild
-     ======================================== */
-
+  /* Einleitung */
   & .competitions-intro {
     display: grid;
     gap: var(--space-md);
@@ -1555,6 +1436,7 @@ dl {
     }
   }
 
+  /* Hero-Bild */
   & .competitions-hero-image {
     overflow: hidden;
     width: 100%;
@@ -1570,19 +1452,9 @@ dl {
       object-fit: cover;
       object-position: center;
     }
-
-    & figcaption {
-      padding: var(--space-xs) var(--space-sm);
-      color: var(--color-text-light);
-      font-size: 0.875rem;
-      text-align: center;
-    }
   }
 
-  /* ========================================
-     Hauptwettkampf
-     ======================================== */
-
+  /* Hauptwettkampf */
   & .competitions-main {
     & article {
       display: grid;
@@ -1595,10 +1467,7 @@ dl {
     }
 
     & dl {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: var(--space-sm);
-      margin: 0;
+      grid-template-columns: minmax(0, 1fr);
     }
 
     & dl > div {
@@ -1621,7 +1490,6 @@ dl {
     }
   }
 
-  /* Status des Hauptwettkampfs */
   & .competition-status {
     justify-self: start;
     margin: 0;
@@ -1633,7 +1501,7 @@ dl {
     font-weight: 700;
   }
 
-  /* Streckenbild des Hamburg-Marathons */
+  /* Streckenkarte */
   & .competition-route {
     width: 100%;
     max-width: 42rem;
@@ -1656,27 +1524,22 @@ dl {
 
       & a {
         color: var(--color-primary);
-      }
 
-      & a:hover {
-        color: var(--color-secondary);
+        &:hover {
+          color: var(--color-secondary);
+        }
       }
     }
   }
 
-  /* ========================================
-     Vorbereitungswettkämpfe
-     ======================================== */
-
-  & .competitions-planned {
-    & > p {
-      margin-block-end: var(--space-md);
-    }
+  /* Vorbereitungsläufe */
+  & .competitions-planned > p {
+    margin-block-end: var(--space-md);
   }
 
   & .competitions-preparation {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-sm);
     margin: 0;
     padding: 0;
@@ -1695,7 +1558,6 @@ dl {
       background-color: var(--color-surface);
     }
 
-    /* Aufklappbare Überschrift */
     & summary {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
@@ -1721,24 +1583,16 @@ dl {
       &:hover .competition-title {
         color: var(--color-secondary);
       }
+    }
 
-      &:focus-visible {
-        outline: 0.1875rem solid var(--color-focus);
-        outline-offset: 0.25rem;
+    & details[open] summary {
+      margin-block-end: var(--space-md);
+
+      &::after {
+        content: "−";
       }
     }
 
-    & details[open] {
-      & summary {
-        margin-block-end: var(--space-md);
-
-        &::after {
-          content: "−";
-        }
-      }
-    }
-
-    /* Wettkampfname */
     & .competition-title {
       grid-column: 1 / -1;
       min-width: 0;
@@ -1747,7 +1601,6 @@ dl {
       overflow-wrap: break-word;
     }
 
-    /* Statusmarkierungen */
     & .competition-state {
       grid-column: 1;
       justify-self: start;
@@ -1774,10 +1627,8 @@ dl {
       color: var(--color-primary);
     }
 
-    /* Daten eines Vorbereitungslaufs */
     & dl {
-      display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 0;
       margin: 0 0 var(--space-md);
     }
@@ -1806,14 +1657,10 @@ dl {
     }
   }
 
-  /* ========================================
-     Wettkampfbilanz
-     ======================================== */
-
+  /* Wettkampfbilanz */
   & .competitions-balance {
     & dl {
-      display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: var(--space-sm);
       margin-block: var(--space-md);
     }
@@ -1844,19 +1691,14 @@ dl {
     }
   }
 
-  /* ========================================
-     Hinweis zu Vorbereitungswettkämpfen
-     ======================================== */
-
-  & .competitions-note {
-    & p:last-child {
-      margin-block-end: 0;
-    }
+  /* Hinweis zu Vorbereitungsläufen */
+  & .competitions-note p:last-child {
+    margin-block-end: 0;
   }
 }
 
 /* ========================================
-   Etwas breitere Smartphones ab 480 Pixel
+   Wettkämpfe: ab 480 Pixeln
    ======================================== */
 
 @media (min-width: 30rem) {
@@ -1888,7 +1730,7 @@ dl {
 }
 
 /* ========================================
-   Tablet ab 768 Pixel
+   Wettkämpfe: Tablet ab 768 Pixeln
    ======================================== */
 
 @media (min-width: 48rem) {
@@ -1903,12 +1745,10 @@ dl {
         "note note";
     }
 
-    /* Einleitung über die gesamte Breite */
     & .competitions-intro {
       grid-area: intro;
     }
 
-    /* Hauptwettkampf über die gesamte Breite */
     & .competitions-main {
       grid-area: main;
 
@@ -1917,7 +1757,6 @@ dl {
       }
     }
 
-    /* Bilanz unmittelbar unter dem Hauptwettkampf */
     & .competitions-balance {
       grid-area: balance;
 
@@ -1926,7 +1765,6 @@ dl {
       }
     }
 
-    /* Vorbereitungsläufe über die gesamte Breite */
     & .competitions-planned {
       grid-area: planned;
     }
@@ -1938,12 +1776,11 @@ dl {
       }
 
       & dl > div {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         align-content: start;
       }
     }
 
-    /* Hinweis über die gesamte Breite */
     & .competitions-note {
       grid-area: note;
     }
@@ -1951,7 +1788,7 @@ dl {
 }
 
 /* ========================================
-   Desktop ab 1200 Pixel
+   Wettkämpfe: Desktop ab 1200 Pixeln
    ======================================== */
 
 @media (min-width: 75rem) {
@@ -1964,27 +1801,20 @@ dl {
         "planned note";
     }
 
-    /* Hauptwettkampf links */
-    & .competitions-main {
-      & dl {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
+    & .competitions-main dl {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    /* Bilanz rechts neben dem Hauptwettkampf */
-    & .competitions-balance {
-      & dl {
-        grid-template-columns: 1fr;
-      }
+    & .competitions-balance dl {
+      grid-template-columns: minmax(0, 1fr);
     }
 
-    /* Vorbereitungsläufe links */
-    & .competitions-planned {
+    & .competitions-planned,
+    & .competitions-note {
       align-self: stretch;
     }
 
     & .competitions-note {
-      align-self: stretch;
       height: 100%;
     }
   }
@@ -1995,10 +1825,7 @@ dl {
    ======================================== */
 
 .page-equipment {
-  /* ========================================
-     Ausrüstungsbereiche
-     ======================================== */
-
+  /* Ausrüstungsbereiche */
   & .equipment-running,
   & .equipment-cycling,
   & .equipment-swimming,
@@ -2014,10 +1841,7 @@ dl {
     }
   }
 
-  /* ========================================
-     Ausrüstungskarten
-     ======================================== */
-
+  /* Produktkarten */
   & article {
     display: flex;
     min-width: 0;
@@ -2027,30 +1851,24 @@ dl {
 
     & h3,
     & p,
-    & figure,
-    & dl {
+    & figure {
       margin: 0;
     }
   }
 
-  /* ========================================
-     Produktbilder
-     ======================================== */
-
+  /* Produktbilder */
   & .equipment-image {
     display: grid;
     width: 100%;
     height: 15rem;
     overflow: hidden;
     place-items: center;
-    margin: 0;
     padding: var(--space-sm);
     border: 0.0625rem solid var(--color-border);
     border-radius: var(--border-radius);
     background-color: var(--color-image-background);
 
     & img {
-      display: block;
       width: auto;
       height: auto;
       max-width: 100%;
@@ -2060,13 +1878,9 @@ dl {
     }
   }
 
-  /* ========================================
-     Einsatzzweck
-     ======================================== */
-
+  /* Einsatzzweck */
   & .equipment-purpose {
     align-self: flex-start;
-    margin: 0;
     padding: 0.25rem 0.625rem;
     border-radius: 999rem;
     background-color: var(--color-secondary);
@@ -2076,43 +1890,7 @@ dl {
     line-height: 1.3;
   }
 
-  /* ========================================
-     Technische Angaben
-     ======================================== */
-
-  & article dl {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-xs);
-    margin-block-start: auto;
-  }
-
-  & article dl > div {
-    display: grid;
-    grid-template-columns: minmax(5rem, auto) minmax(0, 1fr);
-    gap: var(--space-sm);
-    padding-block: var(--space-xs);
-    border-bottom: 0.0625rem solid var(--color-border);
-  }
-
-  & article dl > div:last-child {
-    border-bottom: 0;
-  }
-
-  & article dt {
-    font-weight: 700;
-  }
-
-  & article dd {
-    min-width: 0;
-    margin: 0;
-    overflow-wrap: anywhere;
-  }
-
-  /* ========================================
-     Persönlicher Hinweis
-     ======================================== */
-
+  /* Persönlicher Hinweis */
   & .equipment-note {
     min-width: 0;
 
@@ -2123,31 +1901,7 @@ dl {
 }
 
 /* ========================================
-   Sehr kleine Smartphones bis 352 Pixel
-   ======================================== */
-
-@media (max-width: 22rem) {
-  .page-equipment {
-    & article dl > div {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 0.25rem;
-    }
-
-    & article dd {
-      overflow-wrap: normal;
-      word-break: normal;
-      hyphens: none;
-    }
-
-    & .equipment-purpose {
-      max-width: 100%;
-      overflow-wrap: anywhere;
-    }
-  }
-}
-
-/* ========================================
-   Tablet ab 768 Pixel
+   Ausrüstung: Tablet ab 768 Pixeln
    ======================================== */
 
 @media (min-width: 48rem) {
@@ -2162,22 +1916,19 @@ dl {
         "swimming note";
     }
 
-    /* Einleitung */
     & .equipment-intro {
       grid-area: intro;
     }
 
-    /* Einheitliche Höhe der Kartenüberschriften */
+    /* Einheitliche Ausrichtung der Karteninhalte */
     & article h3 {
       min-height: 3.25rem;
     }
 
-    /* Einheitliche Bildhöhe in der Tablet-Ansicht */
     & .equipment-image {
       height: 20rem;
     }
 
-    /* Laufausrüstung */
     & .equipment-running {
       grid-area: running;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2187,7 +1938,6 @@ dl {
       }
     }
 
-    /* Radausrüstung */
     & .equipment-cycling {
       grid-area: cycling;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2197,7 +1947,6 @@ dl {
       }
     }
 
-    /* Homegym */
     & .equipment-homegym {
       grid-area: homegym;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2207,12 +1956,10 @@ dl {
       }
     }
 
-    /* Schwimmausrüstung */
     & .equipment-swimming {
       grid-area: swimming;
     }
 
-    /* Persönlicher Hinweis */
     & .equipment-note {
       grid-area: note;
       align-self: stretch;
@@ -2222,7 +1969,7 @@ dl {
 }
 
 /* ========================================
-   Desktop ab 1200 Pixel
+   Ausrüstung: Desktop ab 1200 Pixeln
    ======================================== */
 
 @media (min-width: 75rem) {
@@ -2244,22 +1991,13 @@ dl {
         grid-column: 1 / -1;
       }
 
-      /* Kleinere Bildhöhe in den schmaleren Laufkarten */
       & .equipment-image {
         height: 15rem;
       }
     }
 
-    /* Zwei Fahrradkarten nebeneinander */
-    & .equipment-cycling {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-
-      & > h2 {
-        grid-column: 1 / -1;
-      }
-    }
-
-    /* Zwei Homegym-Karten nebeneinander */
+    /* Jeweils zwei Karten nebeneinander */
+    & .equipment-cycling,
     & .equipment-homegym {
       grid-template-columns: repeat(2, minmax(0, 1fr));
 
@@ -2268,7 +2006,6 @@ dl {
       }
     }
 
-    /* Bildhöhe in den breiteren Karten */
     & .equipment-cycling .equipment-image,
     & .equipment-swimming .equipment-image,
     & .equipment-homegym .equipment-image {
@@ -2283,8 +2020,6 @@ dl {
 
 .page-legal {
   & main {
-    display: grid;
-    gap: var(--space-lg);
     max-width: 56rem;
   }
 }
@@ -2297,6 +2032,7 @@ dl {
 
     & .privacy-intro,
     & .privacy-rights,
+    & .privacy-complaint,
     & .privacy-date {
       grid-column: 1 / -1;
     }
