@@ -4,7 +4,7 @@ class SiteHeader extends HTMLElement {
       <header>
         <a class="site-brand" href="index.html">
           <img
-            src="assets/img/road-to-hamburg-logo.png"
+            src="assets/img/road-to-hamburg-logo.webp"
             alt="Road to Hamburg – zur Startseite"
             width="2048"
             height="1024"
