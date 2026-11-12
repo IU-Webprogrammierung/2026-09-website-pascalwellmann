@@ -1825,7 +1825,7 @@ dl {
    ======================================== */
 
 .page-equipment {
-  /* Ausrüstungsbereiche */
+  /* Inhaltsbereiche */
   & .equipment-running,
   & .equipment-cycling,
   & .equipment-swimming,
@@ -1841,7 +1841,7 @@ dl {
     }
   }
 
-  /* Produktkarten */
+  /* Ausrüstungskarten */
   & article {
     display: flex;
     min-width: 0;
@@ -1858,27 +1858,30 @@ dl {
 
   /* Produktbilder */
   & .equipment-image {
-    display: grid;
-    width: 100%;
-    height: 15rem;
+    position: relative;
     overflow: hidden;
-    place-items: center;
-    padding: var(--space-sm);
+    width: 100%;
+    height: 14rem;
+    margin: 0;
     border: 0.0625rem solid var(--color-border);
     border-radius: var(--border-radius);
     background-color: var(--color-image-background);
 
     & img {
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      max-height: 100%;
+      position: absolute;
+      inset: var(--space-xs);
+      display: block;
+      width: calc(100% - (2 * var(--space-xs)));
+      height: calc(100% - (2 * var(--space-xs)));
+      max-width: none;
+      max-height: none;
+      padding: 0;
       object-fit: contain;
       object-position: center;
     }
   }
 
-  /* Einsatzzweck */
+  /* Beschreibung des Einsatzzwecks */
   & .equipment-purpose {
     align-self: flex-start;
     padding: 0.25rem 0.625rem;
@@ -1892,8 +1895,6 @@ dl {
 
   /* Persönlicher Hinweis */
   & .equipment-note {
-    min-width: 0;
-
     & p:last-child {
       margin-block-end: 0;
     }
@@ -1916,6 +1917,7 @@ dl {
         "swimming note";
     }
 
+    /* Einleitung */
     & .equipment-intro {
       grid-area: intro;
     }
@@ -1925,10 +1927,12 @@ dl {
       min-height: 3.25rem;
     }
 
+    /* Größere Bildflächen in der Tabletansicht */
     & .equipment-image {
       height: 20rem;
     }
 
+    /* Laufausrüstung */
     & .equipment-running {
       grid-area: running;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1938,6 +1942,7 @@ dl {
       }
     }
 
+    /* Radausrüstung */
     & .equipment-cycling {
       grid-area: cycling;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1947,6 +1952,7 @@ dl {
       }
     }
 
+    /* Homegym */
     & .equipment-homegym {
       grid-area: homegym;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1956,13 +1962,14 @@ dl {
       }
     }
 
+    /* Schwimmausrüstung */
     & .equipment-swimming {
       grid-area: swimming;
     }
 
+    /* Persönlicher Hinweis */
     & .equipment-note {
       grid-area: note;
-      align-self: stretch;
       height: 100%;
     }
   }
@@ -1990,13 +1997,9 @@ dl {
       & > h2 {
         grid-column: 1 / -1;
       }
-
-      & .equipment-image {
-        height: 15rem;
-      }
     }
 
-    /* Jeweils zwei Karten nebeneinander */
+    /* Zwei Karten nebeneinander */
     & .equipment-cycling,
     & .equipment-homegym {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2004,6 +2007,11 @@ dl {
       & > h2 {
         grid-column: 1 / -1;
       }
+    }
+
+    /* Bildhöhen an schmalere Desktopkarten anpassen */
+    & .equipment-running .equipment-image {
+      height: 15rem;
     }
 
     & .equipment-cycling .equipment-image,
