@@ -16,6 +16,7 @@
       href="assets/img/road-to-hamburg-logo-320.webp"
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <script src="assets/js/components.js"></script>
   </head>
 
   <body class="page-training">
@@ -28,9 +29,16 @@
         <figure class="training-hero-image">
           <img
             src="assets/img/training-hero.webp"
-            alt="Tartanbahn mit Trainingshürden, Markierungskegeln und Trinkflasche"
-            width="1200"
-            height="800"
+            srcset="
+              assets/img/training-hero-480.webp  480w,
+              assets/img/training-hero-960.webp  960w,
+              assets/img/training-hero.webp     1672w
+            "
+            sizes="(min-width: 75rem) 68rem, (min-width: 48rem) calc(100vw - 6rem), calc(100vw - 5rem)"
+            alt="Tartanbahn mit Trainingsausrüstung"
+            width="1672"
+            height="937"
+            fetchpriority="high"
           />
         </figure>
 
@@ -51,8 +59,8 @@
             class="training-icon"
             src="assets/img/icon-laufen.webp"
             alt=""
-            width="80"
-            height="80"
+            width="320"
+            height="320"
           />
 
           <h3>Laufen</h3>
@@ -71,8 +79,8 @@
             class="training-icon"
             src="assets/img/icon-radfahren.webp"
             alt=""
-            width="80"
-            height="80"
+            width="320"
+            height="320"
           />
 
           <h3>Radfahren</h3>
@@ -89,8 +97,8 @@
             class="training-icon"
             src="assets/img/icon-schwimmen.webp"
             alt=""
-            width="80"
-            height="80"
+            width="320"
+            height="320"
           />
 
           <h3>Schwimmen</h3>
@@ -107,8 +115,8 @@
             class="training-icon"
             src="assets/img/icon-krafttraining.webp"
             alt=""
-            width="80"
-            height="80"
+            width="320"
+            height="320"
           />
 
           <h3>Krafttraining</h3>
@@ -406,6 +414,5 @@
     </main>
 
     <site-footer></site-footer>
-    <script src="assets/js/components.js"></script>
   </body>
 </html>

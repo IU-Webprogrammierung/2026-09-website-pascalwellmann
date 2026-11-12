@@ -16,6 +16,7 @@
       href="assets/img/road-to-hamburg-logo-320.webp"
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <script src="assets/js/components.js"></script>
   </head>
 
   <body class="page-competitions">
@@ -28,9 +29,16 @@
         <figure class="competitions-hero-image">
           <img
             src="assets/img/wettkaempfe-hero.webp"
+            srcset="
+              assets/img/wettkaempfe-hero-480.webp  480w,
+              assets/img/wettkaempfe-hero-960.webp  960w,
+              assets/img/wettkaempfe-hero.webp     1672w
+            "
+            sizes="(min-width: 75rem) 68rem, (min-width: 48rem) calc(100vw - 6rem), calc(100vw - 5rem)"
             alt="Läufer beim Zieleinlauf des Bremen-Marathons"
-            width="1680"
-            height="945"
+            width="1672"
+            height="937"
+            fetchpriority="high"
           />
         </figure>
 
@@ -75,9 +83,15 @@
           <figure class="competition-route">
             <img
               src="assets/img/hamburg-marathon-strecke.webp"
-              alt="Kartendarstellung des geplanten Streckenverlaufs beim Hamburg-Marathon"
-              width="1200"
-              height="800"
+              srcset="
+                assets/img/hamburg-marathon-strecke-480.webp  480w,
+                assets/img/hamburg-marathon-strecke-960.webp  960w,
+                assets/img/hamburg-marathon-strecke.webp     1271w
+              "
+              sizes="(min-width: 75rem) 42rem, calc(100vw - 7rem)"
+              alt="Darstellung des geplanten Streckenverlaufs beim Hamburg-Marathon"
+              width="1271"
+              height="793"
               loading="lazy"
             />
 
@@ -287,6 +301,5 @@
     </main>
 
     <site-footer></site-footer>
-    <script src="assets/js/components.js"></script>
   </body>
 </html>

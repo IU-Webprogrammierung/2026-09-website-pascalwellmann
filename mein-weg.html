@@ -16,6 +16,7 @@
       href="assets/img/road-to-hamburg-logo-320.webp"
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <script src="assets/js/components.js"></script>
   </head>
 
   <body class="page-journey">
@@ -28,9 +29,16 @@
         <figure class="journey-hero-image">
           <img
             src="assets/img/mein-weg-hero.webp"
+            srcset="
+              assets/img/mein-weg-hero-480.webp  480w,
+              assets/img/mein-weg-hero-960.webp  960w,
+              assets/img/mein-weg-hero.webp     1280w
+            "
+            sizes="(min-width: 75rem) 68rem, (min-width: 48rem) calc(100vw - 6rem), calc(100vw - 5rem)"
             alt="Lauftraining als Teil meiner Vorbereitung auf den Hamburg-Marathon"
-            width="1200"
-            height="800"
+            width="1280"
+            height="720"
+            fetchpriority="high"
           />
         </figure>
 
@@ -314,6 +322,5 @@
     </main>
 
     <site-footer></site-footer>
-    <script src="assets/js/components.js"></script>
   </body>
 </html>
