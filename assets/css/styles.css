@@ -2039,15 +2039,19 @@ dl {
   }
 }
 
+/* ========================================
+   Datenschutz: Tablet und Desktop
+   ======================================== */
+
 @media (min-width: 48rem) {
   .page-privacy {
     & main {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    /* Bereiche über die gesamte Inhaltsbreite */
     & .privacy-intro,
-    & .privacy-rights,
-    & .privacy-complaint,
+    & .privacy-links,
     & .privacy-date {
       grid-column: 1 / -1;
     }
