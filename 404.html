@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Die aufgerufene Seite wurde auf Road to Hamburg nicht gefunden."
+    />
+
+    <meta name="robots" content="noindex" />
+
+    <title>Seite nicht gefunden | Road to Hamburg</title>
+
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script src="assets/js/components.js" defer></script>
+  </head>
+
+  <body class="page-not-found">
+    <site-header></site-header>
+
+    <main id="main-content" tabindex="-1">
+      <section class="not-found-card">
+        <p class="not-found-kicker">Fehler 404</p>
+
+        <h1>Diese Strecke führt ins Leere.</h1>
+
+        <div class="not-found-visual" aria-hidden="true">
+          <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+            <path
+              class="not-found-route"
+              d="
+                M 45 165
+                C 120 60, 195 195, 275 105
+                S 430 35, 505 125
+                S 610 190, 655 70
+              "
+            />
+
+            <circle class="not-found-start" cx="45" cy="165" r="11" />
+
+            <circle class="not-found-finish" cx="655" cy="70" r="11" />
+          </svg>
+
+          <span class="not-found-code">404</span>
+        </div>
+
+        <p class="not-found-text">
+          Die gesuchte Seite wurde nicht gefunden. Möglicherweise wurde sie
+          verschoben, umbenannt oder die eingegebene Adresse ist nicht korrekt.
+        </p>
+
+        <p class="button-group">
+          <a class="button" href="index.html"> Zur Startseite </a>
+
+          <a class="button button--secondary" href="mein-weg.html">
+            Meinen Weg ansehen
+          </a>
+        </p>
+      </section>
+    </main>
+
+    <site-footer></site-footer>
+  </body>
+</html>

@@ -2333,6 +2333,106 @@ dl {
 }
 
 /* ========================================
+   404 - Seite nicht gefunden
+   ======================================== */
+
+.page-not-found {
+  & main {
+    display: grid;
+    min-height: calc(100vh - 14rem);
+    max-width: 56rem;
+    align-items: center;
+  }
+
+  & .not-found-card {
+    display: grid;
+    gap: var(--space-md);
+    text-align: center;
+
+    & > * {
+      margin: 0;
+    }
+  }
+
+  & .not-found-kicker {
+    color: var(--color-secondary);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  & h1 {
+    margin: 0;
+  }
+
+  & .not-found-visual {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 44rem;
+    margin-inline: auto;
+    border: 0.0625rem solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-surface-soft);
+  }
+
+  & .not-found-visual svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  & .not-found-route {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 0.3rem;
+    stroke-linecap: round;
+    stroke-dasharray: 0.75rem 0.75rem;
+    vector-effect: non-scaling-stroke;
+  }
+
+  & .not-found-start {
+    fill: var(--color-primary);
+    stroke: var(--color-surface);
+    stroke-width: 0.25rem;
+    vector-effect: non-scaling-stroke;
+  }
+
+  & .not-found-finish {
+    fill: var(--color-action);
+    stroke: var(--color-surface);
+    stroke-width: 0.25rem;
+    vector-effect: non-scaling-stroke;
+  }
+
+  & .not-found-code {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    padding: 0.125em 0.25em;
+    border-radius: var(--border-radius);
+    background-color: color-mix(in srgb, var(--color-surface) 88%, transparent);
+    color: var(--color-primary);
+    font-size: clamp(3.5rem, 16vw, 7rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    transform: translate(-50%, -50%);
+  }
+
+  & .not-found-text {
+    max-width: 42rem;
+    margin-inline: auto;
+    color: var(--color-text-light);
+  }
+
+  & .button-group {
+    justify-content: center;
+  }
+}
+
+/* ========================================
    Impressum und Datenschutzerklärung
    ======================================== */
 
