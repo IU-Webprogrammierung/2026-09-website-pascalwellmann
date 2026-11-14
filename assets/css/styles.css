@@ -527,6 +527,113 @@ footer {
     }
   }
 }
+
+/* Back-to-Top-Link */
+
+.back-to-top {
+  position: fixed;
+  right: max(var(--space-sm), env(safe-area-inset-right));
+  bottom: max(var(--space-sm), env(safe-area-inset-bottom));
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0.125rem solid var(--color-secondary);
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  box-shadow: var(--shadow-medium);
+  color: var(--color-surface);
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.75rem);
+  pointer-events: none;
+  transition:
+    opacity 150ms ease,
+    visibility 0s linear 150ms,
+    transform 150ms ease;
+
+  & > span:first-child {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  /* Beschriftung auf Smartphone und Tablet ausblenden */
+
+  & > span:last-child {
+    display: none;
+  }
+
+  /* Link- und Besuchszustand einheitlich darstellen */
+
+  &:link,
+  &:visited {
+    border-color: var(--color-secondary);
+    background-color: var(--color-secondary);
+    color: var(--color-surface);
+  }
+
+  &:focus-visible {
+    border-color: var(--color-secondary);
+    background-color: var(--color-secondary);
+    color: var(--color-surface);
+    outline: 0.1875rem solid var(--color-focus);
+    outline-offset: 0.1875rem;
+  }
+
+  &:active {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+  }
+
+  &[data-visible] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+}
+
+/* Hover-Effekt nur auf Geräten mit echter Hoverfunktion */
+
+@media (hover: hover) and (pointer: fine) {
+  .back-to-top:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+  }
+}
+
+/* Desktop ab 1200 Pixel */
+
+@media (min-width: 75rem) {
+  .back-to-top {
+    width: auto;
+    gap: var(--space-xs);
+    padding: 0.625rem var(--space-sm);
+    border-radius: 999rem;
+
+    & > span:last-child {
+      display: inline;
+    }
+  }
+}
+
+/* Bewegungsreduktion */
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top {
+    transition: none;
+  }
+}
+
 /* ========================================
    Inhaltsbereiche
    ======================================== */
@@ -2087,6 +2194,7 @@ dl {
   .button,
   .button-group,
   .menu-toggle,
+  .back-to-top,
   .home-hero-image,
   .journey-hero-image,
   .journey-stations figure,

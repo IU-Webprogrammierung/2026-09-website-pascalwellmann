@@ -2,7 +2,11 @@ class SiteHeader extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <header>
-        <a class="site-brand" href="index.html">
+        <a
+          id="page-top"
+          class="site-brand"
+          href="index.html"
+        >
           <img
             src="assets/img/road-to-hamburg-logo.webp"
             srcset="
@@ -108,7 +112,50 @@ class SiteFooter extends HTMLElement {
           </ul>
         </nav>
       </footer>
+
+      <a
+        class="back-to-top"
+        href="#page-top"
+        aria-label="Zurück nach oben"
+        aria-hidden="true"
+        tabindex="-1"
+      >
+        <span aria-hidden="true">↑</span>
+        <span>Nach oben</span>
+      </a>
     `;
+
+    const pageHeader = document.querySelector("site-header header");
+    const pageTop = document.querySelector("#page-top");
+    const backToTopLink = this.querySelector(".back-to-top");
+
+    const setBackToTopVisibility = (isVisible) => {
+      backToTopLink.toggleAttribute("data-visible", isVisible);
+      backToTopLink.setAttribute("aria-hidden", String(!isVisible));
+      backToTopLink.tabIndex = isVisible ? 0 : -1;
+    };
+
+    if ("IntersectionObserver" in window && pageHeader) {
+      this.backToTopObserver = new IntersectionObserver(([entry]) => {
+        setBackToTopVisibility(!entry.isIntersecting);
+      });
+
+      this.backToTopObserver.observe(pageHeader);
+    } else {
+      setBackToTopVisibility(true);
+    }
+
+    backToTopLink.addEventListener("click", () => {
+      if (pageTop) {
+        pageTop.focus({
+          preventScroll: true,
+        });
+      }
+    });
+  }
+
+  disconnectedCallback() {
+    this.backToTopObserver?.disconnect();
   }
 }
 
