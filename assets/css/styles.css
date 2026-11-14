@@ -3,19 +3,25 @@
    ======================================== */
 
 :root {
-  /* Marken- und Aktionsfarben */
+  /* Marken- und Textfarben */
   --color-primary: #17324d;
   --color-secondary: #a52632;
   --color-accent: #006b7d;
-
-  /* Statusfarben */
   --color-neutral: #53636f;
+
+  /* Aktionsfarben */
+  --color-action: #a52632;
+  --color-on-action: #ffffff;
 
   /* Flächen */
   --color-background: #e7f2f5;
   --color-surface: #fffdf8;
   --color-surface-soft: #eef7f6;
   --color-image-background: #ffffff;
+
+  /* Tabellen */
+  --color-table-header: #17324d;
+  --color-on-table-header: #ffffff;
 
   /* Schrift */
   --color-text: #17212b;
@@ -41,6 +47,43 @@
 
   --border-radius: 0.5rem;
   --content-width: 72rem;
+}
+
+/* Dunkles Farbschema */
+
+:root[data-theme="dark"] {
+  /* Marken- und Textfarben */
+  --color-primary: #d6e7f5;
+  --color-secondary: #e06a75;
+  --color-accent: #72d3df;
+  --color-neutral: #b5c1c9;
+
+  /* Aktionsfarben */
+  --color-action: #b93b48;
+  --color-on-action: #ffffff;
+
+  /* Flächen */
+  --color-background: #0e1821;
+  --color-surface: #162630;
+  --color-surface-soft: #1d313c;
+  --color-image-background: #ffffff;
+
+  /* Tabellen */
+  --color-table-header: #365966;
+  --color-on-table-header: #ffffff;
+
+  /* Schrift */
+  --color-text: #f5f7f8;
+  --color-text-light: #c6d3da;
+
+  /* Rahmen und Fokus */
+  --color-border: #5b7481;
+  --color-border-strong: #8499a4;
+  --color-focus: #ffd166;
+
+  /* Schatten */
+  --shadow-small: 0 0.25rem 0.75rem rgb(0 0 0 / 24%);
+  --shadow-medium: 0 0.5rem 1.25rem rgb(0 0 0 / 34%);
 }
 
 /* ========================================
@@ -71,7 +114,27 @@ body {
   line-height: 1.6;
 }
 
+/* Hintergrundverlauf im dunklen Farbschema */
+
+:root[data-theme="dark"] body {
+  background-image: linear-gradient(
+    145deg,
+    rgb(114 211 223 / 8%),
+    transparent 28rem
+  );
+}
+
+/* Logo im dunklen Farbschema hervorheben */
+
+:root[data-theme="dark"] .site-brand img {
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.375rem;
+  background-color: #fffdf8;
+  box-shadow: var(--shadow-small);
+}
+
 /* Inhalte nur für Screenreader zugänglich machen */
+
 .visually-hidden {
   position: absolute;
   width: 0.0625rem;
@@ -225,20 +288,21 @@ summary:hover {
 /* Smartphone */
 header {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: var(--space-sm) var(--space-md);
+  gap: var(--space-sm);
   padding-block: var(--space-sm);
   border-bottom: 0.125rem solid var(--color-border);
 
   /* Logo */
   & > .site-brand {
+    display: inline-flex;
     grid-column: 1;
     grid-row: 1;
-    display: inline-flex;
     align-items: center;
     justify-self: start;
     min-width: 0;
+    border-radius: var(--border-radius);
     text-decoration: none;
 
     & img {
@@ -251,39 +315,77 @@ header {
     &:focus-visible {
       outline: 0.1875rem solid var(--color-focus);
       outline-offset: 0.1875rem;
-      border-radius: var(--border-radius);
     }
+  }
+
+  /* Theme-Schalter */
+  & > .theme-toggle {
+    display: inline-flex;
+    grid-column: 2;
+    grid-row: 1;
+    align-items: center;
+    justify-content: center;
+    justify-self: end;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0.125rem solid var(--color-primary);
+    border-radius: 50%;
+    background-color: var(--color-surface-soft);
+    color: var(--color-primary);
+    font: inherit;
+    cursor: pointer;
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease,
+      color 150ms ease;
+
+    &:focus-visible {
+      outline: 0.1875rem solid var(--color-focus);
+      outline-offset: 0.1875rem;
+    }
+
+    &[aria-pressed="true"] {
+      border-color: var(--color-focus);
+      background-color: var(--color-surface-soft);
+      color: var(--color-focus);
+    }
+  }
+
+  & .theme-toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.375rem;
+    line-height: 1;
   }
 
   /* Menüschaltfläche */
   & > .menu-toggle {
-    grid-column: 2;
-    grid-row: 1;
     display: inline-flex;
+    grid-column: 3;
+    grid-row: 1;
     align-items: center;
     justify-content: center;
     justify-self: end;
-    gap: 0.5rem;
-    min-width: 2.75rem;
-    min-height: 2.75rem;
-    padding: 0.5rem 0.75rem;
-    border: 0.125rem solid var(--color-primary);
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0.125rem solid var(--color-action);
     border-radius: var(--border-radius);
-    background-color: var(--color-primary);
-    color: var(--color-surface);
+    background-color: var(--color-action);
+    color: var(--color-on-action);
     font: inherit;
-    font-weight: 700;
     cursor: pointer;
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease,
+      color 150ms ease;
 
     &::before {
       content: "☰";
       font-size: 1.25rem;
       line-height: 1;
-    }
-
-    &:hover {
-      background-color: var(--color-secondary);
-      border-color: var(--color-secondary);
     }
 
     &:focus-visible {
@@ -302,7 +404,7 @@ header {
     border: 0.0625rem solid var(--color-border);
     border-radius: var(--border-radius);
     background-color: var(--color-surface);
-    box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 10%);
+    box-shadow: var(--shadow-small);
 
     & ul {
       display: flex;
@@ -337,11 +439,7 @@ header {
     }
 
     & a:hover {
-      background-color: color-mix(
-        in srgb,
-        var(--color-primary) 10%,
-        var(--color-surface)
-      );
+      background-color: var(--color-surface-soft);
       color: var(--color-primary);
     }
 
@@ -351,8 +449,8 @@ header {
     }
 
     & a[aria-current="page"] {
-      background-color: var(--color-secondary);
-      color: var(--color-surface);
+      background-color: var(--color-action);
+      color: var(--color-on-action);
     }
   }
 }
@@ -368,16 +466,32 @@ site-header[data-menu-open] {
   }
 }
 
+/* Hover-Effekte nur auf Geräten mit präzisem Mauszeiger */
+@media (hover: hover) and (pointer: fine) {
+  header > .theme-toggle:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-background);
+  }
+
+  header > .menu-toggle:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-background);
+  }
+}
+
 /* ========================================
-   Tablet und Desktop ab 768 Pixel
+   Header ab 768 Pixeln
    ======================================== */
 
 @media (min-width: 48rem) {
   header {
-    padding-block: var(--space-md);
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr) auto;
     column-gap: var(--space-sm);
+    padding-block: var(--space-md);
 
+    /* Logo links */
     & > .site-brand {
       grid-column: 1;
       grid-row: 1;
@@ -388,10 +502,12 @@ site-header[data-menu-open] {
       }
     }
 
+    /* Menüschaltfläche ausblenden */
     & > .menu-toggle {
       display: none;
     }
 
+    /* Navigation rechts neben dem Logo */
     & > nav {
       display: block;
       grid-column: 2;
@@ -431,18 +547,25 @@ site-header[data-menu-open] {
 
       & a:hover {
         background-color: var(--color-primary);
-        color: var(--color-surface);
+        color: var(--color-background);
       }
 
       & a:focus-visible {
         outline-offset: 0.1875rem;
       }
     }
+
+    /* Theme-Schalter rechts neben der Navigation */
+    & > .theme-toggle {
+      grid-column: 3;
+      grid-row: 1;
+      margin-inline-start: var(--space-xs);
+    }
   }
 }
 
 /* ========================================
-   Desktop ab 1200 Pixel
+   Header ab 1200 Pixeln
    ======================================== */
 
 @media (min-width: 75rem) {
@@ -452,6 +575,18 @@ site-header[data-menu-open] {
     & > .site-brand img {
       max-width: 13rem;
       max-height: 4.5rem;
+    }
+
+    & > nav ul {
+      gap: 0.45rem;
+    }
+
+    & > nav a {
+      padding: 0.5rem 0.375rem;
+    }
+
+    & > .theme-toggle {
+      margin-inline-start: 0;
     }
   }
 }
@@ -541,11 +676,11 @@ footer {
   width: 2.75rem;
   min-height: 2.75rem;
   padding: 0;
-  border: 0.125rem solid var(--color-secondary);
+  border: 0.125rem solid var(--color-action);
   border-radius: 50%;
-  background-color: var(--color-secondary);
+  background-color: var(--color-action);
   box-shadow: var(--shadow-medium);
-  color: var(--color-surface);
+  color: var(--color-on-action);
   font-weight: 700;
   line-height: 1;
   text-decoration: none;
@@ -573,15 +708,15 @@ footer {
 
   &:link,
   &:visited {
-    border-color: var(--color-secondary);
-    background-color: var(--color-secondary);
-    color: var(--color-surface);
+    border-color: var(--color-action);
+    background-color: var(--color-action);
+    color: var(--color-on-action);
   }
 
   &:focus-visible {
-    border-color: var(--color-secondary);
-    background-color: var(--color-secondary);
-    color: var(--color-surface);
+    border-color: var(--color-action);
+    background-color: var(--color-action);
+    color: var(--color-on-action);
     outline: 0.1875rem solid var(--color-focus);
     outline-offset: 0.1875rem;
   }
@@ -589,7 +724,7 @@ footer {
   &:active {
     border-color: var(--color-accent);
     background-color: var(--color-accent);
-    color: var(--color-surface);
+    color: var(--color-on-action);
   }
 
   &[data-visible] {
@@ -607,7 +742,7 @@ footer {
   .back-to-top:hover {
     border-color: var(--color-primary);
     background-color: var(--color-primary);
-    color: var(--color-surface);
+    color: var(--color-on-action);
   }
 }
 
@@ -713,10 +848,10 @@ dl {
   justify-content: center;
   min-height: 2.75rem;
   padding: 0.625rem var(--space-sm);
-  border: 0.125rem solid var(--color-secondary);
+  border: 0.125rem solid var(--color-action);
   border-radius: var(--border-radius);
-  background-color: var(--color-secondary);
-  color: var(--color-surface);
+  background-color: var(--color-action);
+  color: var(--color-on-action);
   font-weight: 700;
   line-height: 1.2;
   text-align: center;
@@ -729,7 +864,7 @@ dl {
   &:hover {
     border-color: var(--color-primary);
     background-color: var(--color-primary);
-    color: var(--color-surface);
+    color: var(--color-on-action);
   }
 
   &:focus-visible {
@@ -743,7 +878,7 @@ dl {
 
     &:hover {
       background-color: var(--color-primary);
-      color: var(--color-surface);
+      color: var(--color-on-action);
     }
   }
 }
@@ -1240,11 +1375,12 @@ dl {
     }
 
     & thead {
-      background-color: var(--color-primary);
-      color: var(--color-surface);
+      background-color: var(--color-table-header);
+      color: var(--color-on-table-header);
 
       & th {
         border-block-start: 0;
+        color: inherit;
       }
     }
 
@@ -1338,7 +1474,7 @@ dl {
 
     /* Aktuelle Trainingsphase */
     & li[aria-current="step"] article {
-      border: 0.125rem solid var(--color-secondary);
+      border: 0.125rem solid var(--color-action);
       background-color: color-mix(
         in srgb,
         var(--color-secondary) 10%,
@@ -1351,8 +1487,8 @@ dl {
       margin-block-end: var(--space-xs);
       padding: 0.25rem 0.625rem;
       border-radius: 999rem;
-      background-color: var(--color-secondary);
-      color: var(--color-surface);
+      background-color: var(--color-action);
+      color: var(--color-on-action);
       font-size: 0.875rem;
       font-weight: 700;
     }
@@ -1390,6 +1526,32 @@ dl {
     & li + li {
       margin-block-start: var(--space-xs);
     }
+  }
+}
+
+/* Piktogramme im dunklen Farbschema */
+:root[data-theme="dark"] .page-training {
+  & .training-icon {
+    padding: var(--space-xs);
+    border: 0.0625rem solid var(--color-border);
+    border-radius: 50%;
+    background-color: var(--color-image-background);
+    box-shadow: var(--shadow-small);
+  }
+}
+
+/* Trainingsmedien im dunklen Farbschema */
+:root[data-theme="dark"] .page-training {
+  & .training-icon {
+    padding: var(--space-xs);
+    border: 0.0625rem solid var(--color-border);
+    border-radius: 50%;
+    background-color: var(--color-image-background);
+    box-shadow: var(--shadow-small);
+  }
+
+  & .training-load-image {
+    background-color: var(--color-surface-soft);
   }
 }
 
@@ -1610,7 +1772,7 @@ dl {
     padding: 0.25rem 0.625rem;
     border-radius: 999rem;
     background-color: var(--color-accent);
-    color: var(--color-surface);
+    color: var(--color-on-action);
     font-size: 0.875rem;
     font-weight: 700;
   }
@@ -1726,13 +1888,13 @@ dl {
     }
 
     & .competition-state.completed {
-      background-color: var(--color-secondary);
-      color: var(--color-surface);
+      background-color: var(--color-action);
+      color: var(--color-on-action);
     }
 
     & .competition-state.planned {
       background-color: var(--color-accent);
-      color: var(--color-surface);
+      color: var(--color-on-action);
     }
 
     & .competition-state.open {
@@ -2000,8 +2162,8 @@ dl {
     align-self: flex-start;
     padding: 0.25rem 0.625rem;
     border-radius: 999rem;
-    background-color: var(--color-secondary);
-    color: var(--color-surface);
+    background-color: var(--color-action);
+    color: var(--color-on-action);
     font-size: 0.875rem;
     font-weight: 700;
     line-height: 1.3;
@@ -2194,6 +2356,7 @@ dl {
   .button,
   .button-group,
   .menu-toggle,
+  .theme-toggle,
   .back-to-top,
   .home-hero-image,
   .journey-hero-image,

@@ -1,12 +1,53 @@
+/* ========================================
+   Farbschema
+   ======================================== */
+
+const themeStorageKey = "road-to-hamburg-theme";
+const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+const getStoredTheme = () => {
+  try {
+    const storedTheme = localStorage.getItem(themeStorageKey);
+
+    if (storedTheme === "light" || storedTheme === "dark") {
+      return storedTheme;
+    }
+  } catch {
+    /* Die Website funktioniert auch ohne Zugriff auf localStorage. */
+  }
+
+  return null;
+};
+
+const getSystemTheme = () => {
+  return systemThemeQuery.matches ? "dark" : "light";
+};
+
+const applyTheme = (theme) => {
+  document.documentElement.setAttribute("data-theme", theme);
+  document.documentElement.style.colorScheme = theme;
+};
+
+const storeTheme = (theme) => {
+  try {
+    localStorage.setItem(themeStorageKey, theme);
+  } catch {
+    /* Die Theme-Auswahl wird in diesem Fall nicht dauerhaft gespeichert. */
+  }
+};
+
+/* Farbschema möglichst früh anwenden */
+applyTheme(getStoredTheme() || getSystemTheme());
+
+/* ========================================
+   Kopfbereich
+   ======================================== */
+
 class SiteHeader extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <header>
-        <a
-          id="page-top"
-          class="site-brand"
-          href="index.html"
-        >
+        <a id="page-top" class="site-brand" href="index.html">
           <img
             src="assets/img/road-to-hamburg-logo.webp"
             srcset="
@@ -20,6 +61,16 @@ class SiteHeader extends HTMLElement {
             height="887"
           />
         </a>
+
+        <button
+          class="theme-toggle"
+          type="button"
+          aria-pressed="false"
+          title="Dunklen Modus aktivieren"
+        >
+          <span class="theme-toggle-icon" aria-hidden="true">☾</span>
+          <span class="visually-hidden">Dunklen Modus aktivieren</span>
+        </button>
 
         <button
           class="menu-toggle"
@@ -43,10 +94,29 @@ class SiteHeader extends HTMLElement {
     `;
 
     const menuButton = this.querySelector(".menu-toggle");
-    const menuButtonText = menuButton.querySelector("span");
-    const navigationLinks = this.querySelectorAll("#main-navigation a");
+    const menuButtonText = menuButton.querySelector(".visually-hidden");
+
+    const navigation = this.querySelector("#main-navigation");
+    const navigationLinks = navigation.querySelectorAll("a");
+
+    const themeButton = this.querySelector(".theme-toggle");
+    const themeButtonIcon = themeButton.querySelector(".theme-toggle-icon");
+    const themeButtonText = themeButton.querySelector(".visually-hidden");
+
     const tabletMediaQuery = window.matchMedia("(min-width: 48rem)");
 
+    /* Theme-Button passend zur Ansicht im DOM anordnen */
+    const positionThemeButton = () => {
+      if (tabletMediaQuery.matches) {
+        navigation.after(themeButton);
+      } else {
+        menuButton.before(themeButton);
+      }
+    };
+
+    positionThemeButton();
+
+    /* Aktuelle Seite in der Navigation kennzeichnen */
     const currentPage =
       window.location.pathname.split("/").pop() || "index.html";
 
@@ -56,6 +126,7 @@ class SiteHeader extends HTMLElement {
       }
     });
 
+    /* Mobile Navigation öffnen und schließen */
     const openMenu = () => {
       this.setAttribute("data-menu-open", "");
       menuButton.setAttribute("aria-expanded", "true");
@@ -91,13 +162,61 @@ class SiteHeader extends HTMLElement {
       }
     });
 
+    /* Theme-Button aktualisieren */
+    const updateThemeButton = () => {
+      const darkModeIsActive =
+        document.documentElement.getAttribute("data-theme") === "dark";
+
+      themeButton.setAttribute("aria-pressed", String(darkModeIsActive));
+
+      if (darkModeIsActive) {
+        themeButtonIcon.textContent = "☀";
+        themeButtonText.textContent = "Hellen Modus aktivieren";
+        themeButton.title = "Hellen Modus aktivieren";
+      } else {
+        themeButtonIcon.textContent = "☾";
+        themeButtonText.textContent = "Dunklen Modus aktivieren";
+        themeButton.title = "Dunklen Modus aktivieren";
+      }
+    };
+
+    updateThemeButton();
+
+    themeButton.addEventListener("click", () => {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+      applyTheme(newTheme);
+      storeTheme(newTheme);
+      updateThemeButton();
+    });
+
+    /* Änderungen der Systemdarstellung übernehmen,
+       solange keine eigene Auswahl gespeichert wurde */
+    systemThemeQuery.addEventListener("change", (event) => {
+      if (getStoredTheme() !== null) {
+        return;
+      }
+
+      applyTheme(event.matches ? "dark" : "light");
+      updateThemeButton();
+    });
+
+    /* Header beim Wechsel der Bildschirmgröße anpassen */
     tabletMediaQuery.addEventListener("change", (event) => {
+      positionThemeButton();
+
       if (event.matches) {
         closeMenu();
       }
     });
   }
 }
+
+/* ========================================
+   Fußbereich und Back-to-top-Link
+   ======================================== */
 
 class SiteFooter extends HTMLElement {
   connectedCallback() {
@@ -116,48 +235,66 @@ class SiteFooter extends HTMLElement {
       <a
         class="back-to-top"
         href="#page-top"
-        aria-label="Zurück nach oben"
+        aria-label="Zurück zum Seitenanfang"
         aria-hidden="true"
         tabindex="-1"
       >
         <span aria-hidden="true">↑</span>
-        <span>Nach oben</span>
+        <span class="back-to-top-text">Nach oben</span>
       </a>
     `;
 
-    const pageHeader = document.querySelector("site-header header");
-    const pageTop = document.querySelector("#page-top");
     const backToTopLink = this.querySelector(".back-to-top");
+    const pageHeader = document.querySelector("site-header");
 
-    const setBackToTopVisibility = (isVisible) => {
-      backToTopLink.toggleAttribute("data-visible", isVisible);
-      backToTopLink.setAttribute("aria-hidden", String(!isVisible));
-      backToTopLink.tabIndex = isVisible ? 0 : -1;
-    };
-
-    if ("IntersectionObserver" in window && pageHeader) {
-      this.backToTopObserver = new IntersectionObserver(([entry]) => {
-        setBackToTopVisibility(!entry.isIntersecting);
-      });
-
-      this.backToTopObserver.observe(pageHeader);
-    } else {
-      setBackToTopVisibility(true);
+    if (!backToTopLink || !pageHeader) {
+      return;
     }
 
+    const setBackToTopVisibility = (shouldBeVisible) => {
+      backToTopLink.classList.toggle("is-visible", shouldBeVisible);
+      backToTopLink.toggleAttribute("data-visible", shouldBeVisible);
+      backToTopLink.setAttribute("aria-hidden", String(!shouldBeVisible));
+
+      if (shouldBeVisible) {
+        backToTopLink.removeAttribute("tabindex");
+      } else {
+        backToTopLink.setAttribute("tabindex", "-1");
+      }
+    };
+
+    setBackToTopVisibility(false);
+
+    const headerObserver = new IntersectionObserver(
+      ([entry]) => {
+        setBackToTopVisibility(!entry.isIntersecting);
+      },
+      {
+        threshold: 0,
+      },
+    );
+
+    headerObserver.observe(pageHeader);
+
     backToTopLink.addEventListener("click", () => {
-      if (pageTop) {
+      const pageTop = document.querySelector("#page-top");
+
+      if (!pageTop) {
+        return;
+      }
+
+      window.setTimeout(() => {
         pageTop.focus({
           preventScroll: true,
         });
-      }
+      }, 500);
     });
   }
-
-  disconnectedCallback() {
-    this.backToTopObserver?.disconnect();
-  }
 }
+
+/* ========================================
+   Web Components registrieren
+   ======================================== */
 
 customElements.define("site-header", SiteHeader);
 customElements.define("site-footer", SiteFooter);
