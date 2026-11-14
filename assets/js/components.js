@@ -46,6 +46,10 @@ applyTheme(getStoredTheme() || getSystemTheme());
 class SiteHeader extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
+      <a class="skip-link" href="#main-content">
+        Zum Hauptinhalt
+      </a>
+
       <header>
         <a id="page-top" class="site-brand" href="index.html">
           <img

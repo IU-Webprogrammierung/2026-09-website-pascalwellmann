@@ -134,7 +134,6 @@ body {
 }
 
 /* Inhalte nur für Screenreader zugänglich machen */
-
 .visually-hidden {
   position: absolute;
   width: 0.0625rem;
@@ -145,6 +144,41 @@ body {
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
+}
+
+/* Sprunglink zum Hauptinhalt */
+.skip-link {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+  z-index: 2000;
+  padding: 0.5rem var(--space-sm);
+  border: 0.125rem solid transparent;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-decoration-thickness: 0.125rem;
+  text-underline-offset: 0.2rem;
+  transform: translate(-50%, calc(-100% - var(--space-sm)));
+}
+
+.skip-link:focus {
+  position: relative;
+  inset: auto;
+  display: block;
+  width: fit-content;
+  margin: 0 auto var(--space-xs);
+  border-color: var(--color-focus);
+  color: var(--color-primary);
+  transform: none;
+}
+
+.skip-link:focus-visible {
+  outline: 0.1875rem solid var(--color-focus);
+  outline-offset: 0.125rem;
 }
 
 site-header,
