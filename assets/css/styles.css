@@ -2057,3 +2057,363 @@ dl {
     }
   }
 }
+
+/* ========================================
+   Druckansicht
+   ======================================== */
+
+@media print {
+  @page {
+    margin: 1.5cm;
+  }
+
+  /* Allgemeine Druckeinstellungen */
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  /* Navigation, Bedienelemente und große Bilder ausblenden */
+
+  site-header,
+  site-footer,
+  .button,
+  .button-group,
+  .menu-toggle,
+  .home-hero-image,
+  .journey-hero-image,
+  .journey-stations figure,
+  .training-hero-image,
+  .page-training img.training-icon,
+  .competitions-hero-image,
+  .competition-route,
+  .equipment-image {
+    display: none !important;
+  }
+
+  /* Seitenaufbau */
+
+  main {
+    display: block !important;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  main > section,
+  main > aside {
+    display: block !important;
+    margin-block-end: 1.5rem;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  /* Bildschirmraster in einen normalen Dokumentfluss überführen */
+
+  .training-areas,
+  .training-week,
+  .training-load,
+  .training-phases,
+  .competitions-main,
+  .competitions-balance,
+  .competitions-planned,
+  .equipment-running,
+  .equipment-cycling,
+  .equipment-swimming,
+  .equipment-homegym {
+    display: block !important;
+  }
+
+  /* Abstand zwischen Hauptüberschrift und Einführungstext */
+
+  .page-home .home-intro .home-intro-text,
+  .page-journey .journey-intro > p,
+  .page-training .training-intro > p,
+  .page-competitions .competitions-intro > p,
+  .page-equipment .equipment-intro > p {
+    margin-block-start: 0.75rem;
+  }
+
+  /* Karten und Seitenumbrüche */
+
+  article,
+  details,
+  dl > div {
+    break-inside: avoid;
+    border-color: #777777;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  article {
+    margin-block-end: 0.75rem;
+  }
+
+  /* Umfangreiche Hauptkarte darf sich über mehrere Seiten verteilen */
+
+  .page-competitions .competitions-main article {
+    break-inside: auto;
+  }
+
+  /* Startseite */
+
+  .page-home .home-stats {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .page-home .home-stats > h2 {
+    grid-column: 1 / -1;
+    margin-block-end: 0.25rem;
+  }
+
+  .page-home .home-stats article {
+    margin: 0;
+    padding: 0.5rem;
+  }
+
+  .page-home main > section,
+  .page-home main > aside {
+    margin-block-end: 1rem;
+  }
+
+  /* Marathonstationen */
+
+  .page-journey .journey-stations {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .page-journey .journey-stations > h2 {
+    grid-column: 1 / -1;
+    margin-block-end: 0.25rem;
+  }
+
+  .page-journey .journey-stations article {
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .page-journey .journey-stations article h3 {
+    margin-block-end: 0.25rem;
+  }
+
+  .page-journey .journey-stations article .journey-result {
+    gap: 0.125rem;
+    margin-block: 0.25rem;
+  }
+
+  .page-journey .journey-stations article details {
+    margin-block-start: 0.375rem;
+    padding-block-start: 0.375rem;
+  }
+
+  .page-journey .journey-stations article summary {
+    font-size: 10pt;
+  }
+
+  /* Kennzahlen auf der Seite „Mein Weg“ */
+
+  .page-journey .journey-summary dl {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .page-journey .journey-summary dl > div {
+    padding: 0.5rem;
+  }
+
+  /* Trainingsseite */
+
+  .page-training main > section,
+  .page-training main > aside {
+    margin-block-end: 1rem;
+  }
+
+  .page-training .training-phases details {
+    margin-block-end: 0.25rem;
+    padding: 0.375rem 0.625rem;
+  }
+
+  .page-training .training-principles ul {
+    margin-block: 0.375rem 0;
+    padding-inline-start: 1.25rem;
+  }
+
+  /* Trainingstabelle */
+
+  .training-table-wrapper {
+    overflow: visible;
+    border: 0;
+  }
+
+  .page-training .training-table-wrapper {
+    margin-block-start: 0.375rem;
+  }
+
+  .page-training table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    line-height: 1.2;
+  }
+
+  .page-training th,
+  .page-training td {
+    padding: 0.2rem 0.35rem;
+  }
+
+  .page-training caption {
+    margin-block-end: 0.25rem;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr {
+    break-inside: avoid;
+  }
+
+  /* Wettkampfseite */
+
+  .page-competitions main > section,
+  .page-competitions main > aside {
+    margin-block-end: 0.75rem;
+  }
+
+  .page-competitions .competitions-main dl {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .page-competitions .competitions-balance dl {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .page-competitions .competitions-main dl > div,
+  .page-competitions .competitions-balance dl > div {
+    padding: 0.5rem;
+  }
+
+  .page-competitions .competitions-planned > p {
+    margin-block-end: 0.5rem;
+  }
+
+  /* Vorbereitungsläufe */
+
+  .page-competitions .competitions-preparation {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 0.375rem;
+  }
+
+  .page-competitions .competitions-preparation > li {
+    min-width: 0;
+  }
+
+  .page-competitions .competitions-preparation details {
+    height: auto;
+    padding: 0.375rem 0.625rem;
+  }
+
+  .page-competitions .competitions-preparation summary {
+    font-size: 10pt;
+  }
+
+  .page-competitions .competition-title {
+    overflow-wrap: anywhere;
+  }
+
+  /* Ausrüstung */
+
+  .page-equipment main > section,
+  .page-equipment main > aside {
+    margin-block-end: 0.75rem;
+  }
+
+  .page-equipment .equipment-running > h2,
+  .page-equipment .equipment-cycling > h2,
+  .page-equipment .equipment-swimming > h2,
+  .page-equipment .equipment-homegym > h2 {
+    margin-block-end: 0.25rem;
+  }
+
+  .page-equipment article {
+    margin-block-end: 0.375rem;
+    padding: 0.5rem;
+  }
+
+  .page-equipment .equipment-note {
+    margin-block-start: 0.375rem;
+    margin-block-end: 0;
+  }
+
+  /* Überschriften und Text */
+
+  h1,
+  h2,
+  h3 {
+    color: #000000;
+    break-after: avoid;
+  }
+
+  h1 {
+    font-size: 24pt;
+  }
+
+  h2 {
+    font-size: 18pt;
+  }
+
+  h3 {
+    font-size: 14pt;
+  }
+
+  p,
+  li,
+  dt,
+  dd {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Verbleibende Bilder */
+
+  img {
+    max-width: 100%;
+    height: auto;
+    filter: none;
+  }
+
+  /* Links */
+
+  a {
+    color: #000000;
+    text-decoration: underline;
+  }
+
+  /* Externe Internetadressen im Ausdruck sichtbar machen */
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    overflow-wrap: anywhere;
+  }
+}
